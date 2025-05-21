@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá Quảng Ninh qua bản đồ tương tác, thông tin cơ bản về con người, khí hậu, lịch sử, văn hóa, địa lý, ẩm thực, với các tính năng tương tác như modal hình ảnh, cuộn mượt, thời tiết, đánh dấu yêu thích, chuyển đổi bản đồ, và biểu mẫu phản hồi với thông báo thành công.">
+    <link rel="icon" type="image/png" href="https://x.ai/favicon.ico">
+    <title>Quảng Ninh – Bản Đồ và Thông Tin</title>
+     <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <button class="close-button" onclick="window.location.href='quangninh.html'" aria-label="Đóng trang và chuyển đến Điểm Đến Quảng Ninh" data-tooltip="Đóng trang và trở về Điểm Đến Quảng Ninh">
+        <span>✕</span> Đóng
+    </button>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('map-section')">Xem Bản Đồ</button>
+            <button class="nav-button" onclick="scrollToSection('info-section')">Thông Tin</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="map-section" id="map-section">
+            <h2 data-tooltip="Bản đồ định vị Quảng Ninh">Bản Đồ Quảng Ninh</h2>
+            <div class="map-container" aria-label="Bản đồ tương tác của Quảng Ninh">
+                <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3719.266827073536!2d107.95123531504247!3d21.52481198575564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314b4f6b5b3b8f5f%3A0x6c8b5e7e4b7c8e!2sM%C3%B3ng%20C%C3%A1i%2C%20Qu%E1%BA%A3ng%20Ninh%2C%20Vietnam!5e0!3m2!1sen!2s!4v1698765432109!5m2!1sen!2s" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <p class="map-caption" id="mapCaption">Bản đồ định vị Móng Cái, trung tâm thương mại biên giới sầm uất của Quảng Ninh.</p>
+            <div class="map-controls">
+                <button class="map-control-button" onclick="changeMap('mongcai')">Móng Cái</button>
+                <button class="map-control-button" onclick="changeMap('halong')">Vịnh Hạ Long</button>
+                <button class="map-control-button" onclick="changeMap('yentu')">Yên Tử</button>
+            </div>
+        </div>
+        <div class="info-section" id="info-section">
+            <h2>Thông Tin Cơ Bản Về Quảng Ninh</h2>
+            <div class="info-grid">
+                <div class="info-card" data-id="connguoi">
+                    <img src="https://media.baoquangninh.vn/dataimages/202101/original/images1465111_images1427850_nu_cuoi.jpg" alt="Con người Quảng Ninh" data-caption="Nụ cười thân thiện của người dân Quảng Ninh">
+                    <button class="favorite-button" onclick="toggleFavorite('connguoi')" aria-label="Đánh dấu yêu thích Con Người">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa và con người Quảng Ninh">Con Người</h3>
+                        <p>Người dân Quảng Ninh nổi tiếng với sự thân thiện, mến khách và tinh thần kiên cường của vùng đất mỏ. Với sự giao thoa giữa văn hóa miền biển và miền núi, cư dân nơi đây mang đậm bản sắc vùng Đông Bắc, sống hòa mình với thiên nhiên và các giá trị truyền thống.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="khihau">
+                    <img src="https://jcweather.com/wp-content/uploads/2024/05/khi-hau-o-quang-ninh.jpeg" alt="Khí hậu Quảng Ninh" data-caption="Khí hậu đa dạng của Quảng Ninh">
+                    <button class="favorite-button" onclick="toggleFavorite('khihau')" aria-label="Đánh dấu yêu thích Khí Hậu">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Khí hậu đặc trưng của Quảng Ninh">Khí Hậu</h3>
+                        <p>Quảng Ninh có khí hậu nhiệt đới gió mùa, chia thành hai mùa rõ rệt: mùa hè nóng ẩm (tháng 5-10) và mùa đông lạnh khô (tháng 11-4). Nhiệt độ trung bình từ 16°C vào mùa đông đến 34°C vào mùa hè. Mùa xuân và thu là thời điểm lý tưởng để khám phá Vịnh Hạ Long.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="lichsu">
+                    <img src="https://scontent.fhan14-1.fna.fbcdn.net/v/t1.6435-9/95328080_1622983787857890_5579058136913805312_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=cf85f3&_nc_eui2=AeGf-XSnuQsJnuICriZDj0h7vht3vV_KlQ--G3e9X8qVD-5JJnoVPhDuwjzB5OQEmbcrXkj0ugTuDDLo3HopywrS&_nc_ohc=Xj8bt-3vURgQ7kNvwFW4i9e&_nc_oc=AdnGSL3ZWO-RskEU5zW9R3-DSElQ0shonkmGd64xOgsDZ05LIrsoBosxd35T25qf8pG6zB-APnjLf1_0Vlk_nJIH&_nc_zt=23&_nc_ht=scontent.fhan14-1.fna&_nc_gid=wRiEwgMTZLgXarmx5rkiFA&oh=00_AfLkt0mMfWNCvBqMM4HH5FDHWLl9Z72e6Rg5_UHMlcKWMw&oe=684DA8ED" alt="Lịch sử Quảng Ninh" data-caption="Di tích lịch sử tại Quảng Ninh">
+                    <button class="favorite-button" onclick="toggleFavorite('lichsu')" aria-label="Đánh dấu yêu thích Lịch Sử">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Lịch sử lâu đời của Quảng Ninh">Lịch Sử</h3>
+                        <p>Quảng Ninh có lịch sử lâu đời, là vùng đất của văn hóa Đông Sơn và các triều đại phong kiến. Nơi đây từng là trung tâm khai thác than từ thời Pháp thuộc và là chiến trường quan trọng trong các cuộc kháng chiến. Vịnh Hạ Long được UNESCO công nhận là di sản thế giới năm 1994.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="vanhoa">
+                    <img src="https://media.baoquangninh.vn/upload/image/202310/medium/2136665_tung_bung_khai_hoi_dinh_luc_na_binh_lieu_1_16291212.jpg" alt="Văn hóa Quảng Ninh" data-caption="Lễ hội truyền thống tại Quảng Ninh">
+                    <button class="favorite-button" onclick="toggleFavorite('vanhoa')" aria-label="Đánh dấu yêu thích Văn Hóa">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa đặc sắc của Quảng Ninh">Văn Hóa</h3>
+                        <p>Quảng Ninh là nơi giao thoa của nhiều nền văn hóa dân tộc như Kinh, Tày, Dao. Các lễ hội như Yên Tử, lễ hội chùa Ba Vàng, và các điệu múa dân gian phản ánh sự đa dạng văn hóa. Vịnh Hạ Long và các làng chài là biểu tượng văn hóa biển độc đáo.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="dialy">
+                    <img src="https://media.vneconomy.vn/w800/images/upload/2023/04/13/motgocdothihalong.jpg" alt="Địa lý Quảng Ninh" data-caption="Toàn cảnh đô thị Hạ Long, Quảng Ninh">
+                    <button class="favorite-button" onclick="toggleFavorite('dialy')" aria-label="Đánh dấu yêu thích Địa Lý">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Vị trí và địa hình Quảng Ninh">Địa Lý</h3>
+                        <p>Quảng Ninh nằm ở Đông Bắc Việt Nam, có đường biên giới với Trung Quốc và bờ biển dài hơn 250km. Với diện tích 6.177 km², tỉnh bao gồm vùng núi, đồng bằng, và hơn 2.000 hòn đảo, nổi bật là Vịnh Hạ Long, trung tâm du lịch và kinh tế của khu vực.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="amthuc">
+                    <img src="https://i2.ex-cdn.com/crystalbay.com/files/content/2024/10/25/am-thuc-quang-ninh-1512.jpg" alt="Ẩm thực Quảng Ninh" data-caption="Ẩm thực hải sản đặc trưng của Quảng Ninh">
+                    <button class="favorite-button" onclick="toggleFavorite('amthuc')" aria-label="Đánh dấu yêu thích Ẩm Thực">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Ẩm thực đặc trưng của Quảng Ninh">Ẩm Thực</h3>
+                        <p>Ẩm thực Quảng Ninh nổi tiếng với hải sản tươi ngon như tôm, cua, mực, và đặc biệt là chả mực Hạ Long. Các món ăn đặc trưng khác bao gồm bánh cuốn chả mực, gà đồi Tiên Yên, và rượu mơ Yên Tử, mang đậm hương vị miền biển và núi rừng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="explore-section">
+            <button class="explore-button" onclick="window.location.href='quangninh.html'" aria-label="Chuyển đến trang Điểm Đến Quảng Ninh" data-tooltip="Đi đến trang Điểm Đến Quảng Ninh">
+                <span>✈️</span> Khám Phá Quảng Ninh
+            </button>
+            <button class="feedback-button" onclick="openFeedbackModal()" aria-label="Gửi phản hồi về trang" data-tooltip="Chia sẻ ý kiến của bạn">
+                <span>📝</span> Gửi Phản Hồi
+            </button>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <button class="weather-button" onclick="toggleWeather()">Xem Thời Tiết</button>
+    <div class="weather-overlay" id="weatherOverlay">
+        <p><strong>Thời tiết Quảng Ninh (21/05/2025):</strong></p>
+        <p>Nhiệt độ: 25°C</p>
+        <p>Tình trạng: Trời quang, ít mây</p>
+        <p>Độ ẩm: 70%</p>
+        <button onclick="toggleWeather()">Đóng</button>
+    </div>
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img id="modalImage" src="" alt="Hình ảnh phóng to">
+            <p class="modal-caption" id="modalCaption"></p>
+        </div>
+    </div>
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content feedback-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Gửi Phản Hồi</h3>
+            <input type="text" id="feedbackName" placeholder="Họ và tên" required>
+            <textarea id="feedbackComment" placeholder="Ý kiến của bạn" rows="5" required></textarea>
+            <button onclick="submitFeedback()">Gửi</button>
+            <p id="feedbackMessage" style="display: none;"></p>
+        </div>
+    </div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                    <p class="logo-caption">ViVuWithTeam1</p>
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+    <script src="quangninh.js"></script>
+</body>
+</html>
