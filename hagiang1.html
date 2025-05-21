@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá Hà Giang qua bản đồ tương tác, thông tin cơ bản về con người, khí hậu, lịch sử, văn hóa, địa lý, ẩm thực.">
+    <link rel="icon" type="image/png" href="https://x.ai/favicon.ico">
+    <title>Hà Giang – Bản Đồ và Thông Tin</title>
+    <link rel="stylesheet" href="style2.css">  
+</head>
+<body>
+    <button class="close-button" onclick="window.location.href='hagiang.html'" aria-label="Đóng trang và chuyển đến Điểm Đến Hà Giang" data-tooltip="Đóng trang và trở về Điểm Đến Hà Giang">
+        <span>✕</span> Đóng
+    </button>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('map-section')">Xem Bản Đồ</button>
+            <button class="nav-button" onclick="scrollToSection('info-section')">Thông Tin</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="map-section" id="map-section">
+            <h2 data-tooltip="Bản đồ định vị Hà Giang">Bản Đồ Hà Giang</h2>
+            <div class="map-container" aria-label="Bản đồ tương tác của Hà Giang">
+                <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.123456789012!2d104.98412341502789!3d22.823594988921583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x36b4e7b9b1c2e3%3A0x7c1f43b0b5b1b085!2sH%C3%A0%20Giang!5e0!3m2!1sen!2s!4v1698765432109!5m2!1sen!2s"></iframe>
+            </div>
+            <p class="map-caption" id="mapCaption">Bản đồ định vị trung tâm thành phố Hà Giang, cửa ngõ vùng cao Đông Bắc Việt Nam.</p>
+            <div class="map-controls">
+                <button class="map-control-button" onclick="changeMap('hagiang')">Hà Giang</button>
+                <button class="map-control-button" onclick="changeMap('dongvan')">Đồng Văn</button>
+                <button class="map-control-button" onclick="changeMap('mapileng')">Mã Pí Lèng</button>
+            </div>
+        </div>
+        <div class="info-section" id="info-section">
+            <h2>Thông Tin Cơ Bản Về Hà Giang</h2>
+            <div class="info-grid">
+                <div class="info-card" data-id="connguoi">
+                    <img src="https://lh5.googleusercontent.com/XHZP4QIMvm_LGBs3yBXQhM7CBXeFVw9e_TRwbFiVBgxk0iYtAxCngvgOhX-DMav3ZbSRXuiz48QAeui08zj2DpwDwx7p7uzEH6KUQqvNJIExVNEt1tB-fUcFtvQLh5JuXZ-sSVSo" alt="Con người Hà Giang" data-caption="Nụ cười chân chất của người dân H’Mông tại Hà Giang">
+                    <button class="favorite-button" onclick="toggleFavorite('connguoi')" aria-label="Đánh dấu yêu thích Con Người">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa và con người Hà Giang">Con Người</h3>
+                        <p>Người dân Hà Giang, chủ yếu là các dân tộc thiểu số như H’Mông, Tày, Dao, nổi tiếng với sự chân chất, mến khách và kiên cường. Sống giữa núi rừng hùng vĩ, họ giữ gìn bản sắc văn hóa độc đáo, từ trang phục sặc sỡ đến các phiên chợ vùng cao đầy màu sắc.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="khihau">
+                    <img src="https://www.homepaylater.vn/static/ce9b304361762985cf6ae52ce9d4e208/74f56/3_tim_hieu_thoi_tiet_va_khi_hau_ha_giang_1_dac6f92fb2.jpg" alt="Khí hậu Hà Giang" data-caption="Cảnh sắc Hà Giang trong tiết trời ôn đới">
+                    <button class="favorite-button" onclick="toggleFavorite('khihau')" aria-label="Đánh dấu yêu thích Khí Hậu">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Khí hậu đặc trưng của Hà Giang">Khí Hậu</h3>
+                        <p>Hà Giang có khí hậu ôn đới, với bốn mùa rõ rệt: xuân mát mẻ, hạ ấm, thu se lạnh, đông giá rét. Nhiệt độ dao động từ 5°C vào mùa đông đến 30°C vào mùa hè. Mùa hoa tam giác mạch (tháng 10-12) là thời điểm lý tưởng để ghé thăm.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="lichsu">
+                    <img src="https://hanhtrinhdulich.vn/wp-content/uploads/2021/12/Di-tich-lich-su-Ha-Giang-noi-luu-danh-qua-khu-vang-son-mot-thoi-1-e1639192883739.jpg" alt="Lịch sử Hà Giang" data-caption="Di tích lịch sử tại Hà Giang">
+                    <button class="favorite-button" onclick="toggleFavorite('lichsu')" aria-label="Đánh dấu yêu thích Lịch Sử">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Lịch sử lâu đời của Hà Giang">Lịch Sử</h3>
+                        <p>Hà Giang là vùng đất có lịch sử lâu đời, với dấu ấn của các dân tộc thiểu số và các cuộc kháng chiến bảo vệ biên giới. Khu phố cổ Đồng Văn và cột cờ Lũng Cú là minh chứng cho lịch sử hào hùng và tinh thần bất khuất của người dân nơi đây.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="vanhoa">
+                    <img src="https://lh3.googleusercontent.com/proxy/VUOu5hjZm4cxOEMBwhzSH0TSoDq73-1f-cvEC1Sj9KHvjDyGE2lfw71Qz7X3ss_DDH3KbLptGS6vGB6FRtgdYVRG2BAW-GzR1WGChRcQYYVclRLU4VQ" alt="Văn hóa Hà Giang" data-caption="Lễ hội Chợ tình Khâu Vai tại Hà Giang">
+                    <button class="favorite-button" onclick="toggleFavorite('vanhoa')" aria-label="Đánh dấu yêu thích Văn Hóa">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa đặc sắc của Hà Giang">Văn Hóa</h3>
+                        <p>Hà Giang là vùng đất đa dạng văn hóa với các lễ hội như Lễ hội Chợ tình Khâu Vai, Lễ hội Hoa tam giác mạch, và các phiên chợ vùng cao như chợ Đồng Văn. Âm nhạc dân gian, trang phục truyền thống, và các làng văn hóa như Làng Lô Lô phản ánh bản sắc độc đáo.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="dialy">
+                    <img src="https://dantocmiennui-media.baotintuc.vn/images/84426cb421b40f0fbef0009243df48a9bb72d09ee861fd737fc91f09341b6f9184151310316080a1b73b7e584b0904a9ce12ebdbdad9b0fcfab8b8642783ccc8/cotcolungcu.png.webp" alt="Địa lý Hà Giang" data-caption="Cột cờ Lũng Cú, biểu tượng địa lý của Hà Giang">
+                    <button class="favorite-button" onclick="toggleFavorite('dialy')" aria-label="Đánh dấu yêu thích Địa Lý">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Vị trí và địa hình Hà Giang">Địa Lý</h3>
+                        <p>Hà Giang nằm ở cực Bắc Việt Nam, diện tích khoảng 7.947 km², giáp Trung Quốc. Tỉnh có địa hình núi cao hiểm trở, với Công viên địa chất toàn cầu Cao nguyên đá Đồng Văn, đèo Mã Pí Lèng, và sông Nho Quế, tạo nên cảnh quan hùng vĩ.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="amthuc">
+                    <img src="https://kimlientravel.com.vn/upload/image/du-lich-ha-giang-an-gi.jpg" alt="Ẩm thực Hà Giang" data-caption="Ẩm thực núi rừng đặc trưng của Hà Giang">
+                    <button class="favorite-button" onclick="toggleFavorite('amthuc')" aria-label="Đánh dấu yêu thích Ẩm Thực">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Ẩm thực đặc trưng của Hà Giang">Ẩm Thực</h3>
+                        <p>Ẩm thực Hà Giang mang đậm hương vị núi rừng với các món như thắng cố, cháo ấu tẩu, bánh cuốn trứng, và rượu ngô. Các món ăn dân tộc tại chợ phiên và đặc sản như thịt trâu gác bếp làm say lòng du khách.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="explore-section">
+            <button class="explore-button" onclick="window.location.href='hagiang.html'" aria-label="Chuyển đến trang Điểm Đến Hà Giang" data-tooltip="Đi đến trang Điểm Đến Hà Giang">
+                <span>✈️</span> Khám Phá Hà Giang
+            </button>
+            <button class="feedback-button" onclick="openFeedbackModal()" aria-label="Gửi phản hồi về trang" data-tooltip="Chia sẻ ý kiến của bạn">
+                <span>📝</span> Gửi Phản Hồi
+            </button>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <button class="weather-button" onclick="toggleWeather()">Xem Thời Tiết</button>
+    <div class="weather-overlay" id="weatherOverlay">
+        <p><strong>Thời tiết Hà Giang (21/05/2025):</strong></p>
+        <p>Nhiệt độ: 20°C</p>
+        <p>Tình trạng: Trời se lạnh, mây rải rác</p>
+        <p>Độ ẩm: 75%</p>
+        <button onclick="toggleWeather()">Đóng</button>
+    </div>
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img id="modalImage" src="" alt="Hình ảnh phóng to">
+            <p class="modal-caption" id="modalCaption"></p>
+        </div>
+    </div>
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content feedback-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Gửi Phản Hồi</h3>
+            <input type="text" id="feedbackName" placeholder="Họ và tên" required>
+            <textarea id="feedbackComment" placeholder="Ý kiến của bạn" rows="5" required></textarea>
+            <button onclick="submitFeedback()">Gửi</button>
+            <p id="feedbackMessage" style="display: none;"></p>
+        </div>
+    </div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                    <p class="logo-caption">ViVuWithTeam1</p>
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+     <script src="hagiang.js"></script>
+</body>
+</html>

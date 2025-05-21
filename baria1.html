@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá Bà Rịa - Vũng Tàu qua bản đồ tương tác, thông tin cơ bản về con người, khí hậu, lịch sử, văn hóa, địa lý, ẩm thực, với các tính năng tương tác như modal hình ảnh, cuộn mượt, thời tiết, đánh dấu yêu thích, chuyển đổi bản đồ, và biểu mẫu phản hồi với thông báo thành công, nút khám phá ở dưới cùng, nút đóng ở góc phải, chỉ hiển thị logo, không có tìm kiếm, không có hamburger.">
+    <link rel="icon" type="image/png" href="https://x.ai/favicon.ico">
+    <title>Bà Rịa - Vũng Tàu – Bản Đồ và Thông Tin</title>
+   <link rel="stylesheet" href="style2.css">  
+</head>
+<body>
+    <button class="close-button" onclick="window.location.href='baria.html'" aria-label="Đóng trang và chuyển đến Điểm Đến Bà Rịa - Vũng Tàu" data-tooltip="Đóng trang và trở về Điểm Đến Bà Rịa - Vũng Tàu">
+        <span>✕</span> Đóng
+    </button>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('map-section')">Xem Bản Đồ</button>
+            <button class="nav-button" onclick="scrollToSection('info-section')">Thông Tin</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="map-section" id="map-section">
+            <h2 data-tooltip="Bản đồ định vị Bà Rịa - Vũng Tàu">Bản Đồ Bà Rịa - Vũng Tàu</h2>
+            <div class="map-container" aria-label="Bản đồ tương tác của Bà Rịa - Vũng Tàu">
+                <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.127676947446!2d107.07548331504705!3d10.39956188521302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31756f7b8b8b8b8b%3A0x7d7d7d7d7d7d7d7d!2sVung%20Tau%2C%20Ba%20Ria%20-%20Vung%20Tau%2C%20Vietnam!5e0!3m2!1sen!2s!4v1698765432109!5m2!1sen!2s" allowfullscreen loading="lazy"></iframe>
+            </div>
+            <p class="map-caption" id="mapCaption">Bản đồ định vị thành phố Vũng Tàu, trung tâm du lịch và kinh tế biển của Bà Rịa - Vũng Tàu.</p>
+            <div class="map-controls">
+                <button class="map-control-button" onclick="changeMap('vungtau')">Vũng Tàu</button>
+                <button class="map-control-button" onclick="changeMap('condao')">Côn Đảo</button>
+                <button class="map-control-button" onclick="changeMap('longhai')">Long Hải</button>
+            </div>
+        </div>
+        <div class="info-section" id="info-section">
+            <h2>Thông Tin Cơ Bản Về Bà Rịa - Vũng Tàu</h2>
+            <div class="info-grid">
+                <div class="info-card" data-id="connguoi">
+                    <img src="https://vanhoavaphattrien.vn/uploads/images/2023/12/26/doi-song-con-nguoi4-1703559619.jpg" alt="Con người Bà Rịa - Vũng Tàu" data-caption="Người dân Bà Rịa - Vũng Tàu phóng khoáng và hiếu khách">
+                    <button class="favorite-button" onclick="toggleFavorite('connguoi')" aria-label="Đánh dấu yêu thích Con Người">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa và con người Bà Rịa - Vũng Tàu">Con Người</h3>
+                        <p>Người dân Bà Rịa - Vũng Tàu thân thiện, phóng khoáng và mang tinh thần cởi mở của vùng đất biển. Với sự giao thoa văn hóa từ các vùng miền, cư dân nơi đây năng động, hiếu khách, và tự hào về truyền thống biển cả và lịch sử địa phương.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="khihau">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJRI3bCbX36sDBIBEEfblWuWG7OkuUVm8xbg&s" alt="Khí hậu Bà Rịa - Vũng Tàu" data-caption="Khí hậu ôn hòa tại Bà Rịa - Vũng Tàu">
+                    <button class="favorite-button" onclick="toggleFavorite('khihau')" aria-label="Đánh dấu yêu thích Khí Hậu">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Khí hậu đặc trưng của Bà Rịa - Vũng Tàu">Khí Hậu</h3>
+                        <p>Bà Rịa - Vũng Tàu có khí hậu nhiệt đới gió mùa với hai mùa: mùa khô (tháng 11-4) và mùa mưa (tháng 5-10). Nhiệt độ trung bình từ 25°C đến 32°C. Khí hậu ôn hòa quanh năm, đặc biệt mùa khô là thời điểm lý tưởng cho du lịch biển.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="lichsu">
+                    <img src="https://baria-vungtau.dcs.vn/portal/editor/images/Anh%20Bai%20Viet/2022/Nha-Tron-Ba-Ria-17.jpg" alt="Lịch sử Bà Rịa - Vũng Tàu" data-caption="Nhà tù Côn Đảo, di tích lịch sử Bà Rịa - Vũng Tàu">
+                    <button class="favorite-button" onclick="toggleFavorite('lichsu')" aria-label="Đánh dấu yêu thích Lịch Sử">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Lịch sử lâu đời của Bà Rịa - Vũng Tàu">Lịch Sử</h3>
+                        <p>Bà Rịa - Vũng Tàu có bề dày lịch sử với vai trò là cảng biển quan trọng từ thời nhà Nguyễn. Tỉnh nổi bật trong kháng chiến chống Pháp và Mỹ, với các di tích như Nhà tù Côn Đảo, đình Thắng Tam, và các di tích cách mạng khác.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="vanhoa">
+                    <img src="https://images.baodantoc.vn/uploads/2023/Th%C3%A1ng%202/Ng%C3%A0y_15/TRUNG/V%C5%A9ng%20T%C3%A0u/1.jpg" alt="Văn hóa Bà Rịa - Vũng Tàu" data-caption="Lễ hội Nghinh Ông, nét văn hóa đặc sắc Bà Rịa - Vũng Tàu">
+                    <button class="favorite-button" onclick="toggleFavorite('vanhoa')" aria-label="Đánh dấu yêu thích Văn Hóa">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa đặc sắc của Bà Rịa - Vũng Tàu">Văn Hóa</h3>
+                        <p>Văn hóa Bà Rịa - Vũng Tàu mang đậm nét miền biển với các lễ hội như Nghinh Ông, lễ hội đình Thắng Tam, và lễ hội Dinh Cô. Các hoạt động văn hóa dân gian, tín ngưỡng ngư dân, và các làng nghề như nước mắm Phú Quốc tạo nên bản sắc độc đáo.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="dialy">
+                    <img src="https://topbariavungtauaz.com/wp-content/uploads/2023/09/vi-tri-dia-ly-vung-tau_4.jpg" alt="Địa lý Bà Rịa - Vũng Tàu" data-caption="Bãi biển Vũng Tàu, điểm nhấn địa lý Bà Rịa - Vũng Tàu">
+                    <button class="favorite-button" onclick="toggleFavorite('dialy')" aria-label="Đánh dấu yêu thích Địa Lý">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Vị trí và địa hình Bà Rịa - Vũng Tàu">Địa Lý</h3>
+                        <p>Bà Rịa - Vũng Tàu nằm ở Đông Nam Bộ, với diện tích khoảng 1.989 km² và hơn 300 km bờ biển. Tỉnh có các bãi biển nổi tiếng như Vũng Tàu, Long Hải, và quần đảo Côn Đảo, cùng địa hình đồi núi thấp và đồng bằng ven biển.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="amthuc">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL_Rcd-knoAs16hvY5HSfLUat2oklNUWCDBA&s" alt="Ẩm thực Bà Rịa - Vũng Tàu" data-caption="Bánh khọt Vũng Tàu, món ăn đặc trưng Bà Rịa - Vũng Tàu">
+                    <button class="favorite-button" onclick="toggleFavorite('amthuc')" aria-label="Đánh dấu yêu thích Ẩm Thực">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Ẩm thực đặc trưng của Bà Rịa - Vũng Tàu">Ẩm Thực</h3>
+                        <p>Ẩm thực Bà Rịa - Vũng Tàu nổi tiếng với hải sản tươi sống như lẩu cá bớp, gỏi cá mai, và mực nướng. Các món đặc trưng khác như bánh khọt Vũng Tàu, cháo hào, và nước mắm Phú Quốc mang đến hương vị đậm đà của vùng biển.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="explore-section">
+            <button class="explore-button" onclick="window.location.href='baria.html'" aria-label="Chuyển đến trang Điểm Đến Bà Rịa - Vũng Tàu" data-tooltip="Đi đến trang Điểm Đến Bà Rịa - Vũng Tàu">
+                <span>✈️</span> Khám Phá Bà Rịa - Vũng Tàu
+            </button>
+            <button class="feedback-button" onclick="openFeedbackModal()" aria-label="Gửi phản hồi về trang" data-tooltip="Chia sẻ ý kiến của bạn">
+                <span>📝</span> Gửi Phản Hồi
+            </button>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <button class="weather-button" onclick="toggleWeather()">Xem Thời Tiết</button>
+    <div class="weather-overlay" id="weatherOverlay">
+        <p><strong>Thời tiết Bà Rịa - Vũng Tàu (21/05/2025):</strong></p>
+        <p>Nhiệt độ: 29°C</p>
+        <p>Tình trạng: Trời nắng, có mây nhẹ</p>
+        <p>Độ ẩm: 78%</p>
+        <button onclick="toggleWeather()">Đóng</button>
+    </div>
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img id="modalImage" src="" alt="Hình ảnh phóng to">
+            <p class="modal-caption" id="modalCaption"></p>
+        </div>
+    </div>
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content feedback-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Gửi Phản Hồi</h3>
+            <input type="text" id="feedbackName" placeholder="Họ và tên" required>
+            <textarea id="feedbackComment" placeholder="Ý kiến của bạn" rows="5" required></textarea>
+            <button onclick="submitFeedback()">Gửi</button>
+            <p id="feedbackMessage" style="display: none;"></p>
+        </div>
+    </div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                    <p class="logo-caption">ViVuWithTeam1</p>
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+        <script src="baria.js"></script>
+</body>
+</html>

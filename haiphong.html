@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm Đến Hải Phòng</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="feedback-modal">
+        <div class="feedback-modal-content">
+            <span class="feedback-modal-close">×</span>
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Gửi Phản Hồi</h2>
+            <form class="feedback-form">
+                <div>
+                    <label for="feedback-name"><span class="text-gray-600">👤</span> Tên</label>
+                    <input type="text" id="feedback-name" placeholder="Nhập tên của bạn" required>
+                </div>
+                <div>
+                    <label for="feedback-email"><span class="text-gray-600">📧</span> Email</label>
+                    <input type="email" id="feedback-email" placeholder="Nhập email của bạn" required>
+                    <div id="email-error" class="error-message">Vui lòng nhập email hợp lệ (ví dụ: example@domain.com)</div>
+                </div>
+                <div>
+                    <label for="feedback-message"><span class="text-gray-600">✍️</span> Nội dung phản hồi</label>
+                    <textarea id="feedback-message" rows="4" placeholder="Nhập nội dung phản hồi" required></textarea>
+                </div>
+                <div class="file-input-wrapper">
+                    <label for="feedback-image"><span class="text-gray-600">📷</span> Tải ảnh lên (tùy chọn)</label>
+                    <input type="file" id="feedback-image" accept="image/*">
+                    <img id="image-preview" class="image-preview" alt="Preview ảnh phản hồi">
+                </div>
+                <button type="submit" id="submit-feedback">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="success-toast">Gửi thành công!</div>
+    <header class="tieude">
+        <div class="logo-box">
+               <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <button class="hamburger" aria-label="Toggle menu">☰</button>
+        <nav class="dieuhuong">
+            <div id="div_dieuhuong">
+                <a href="index.html">Trang chủ</a>
+                <ul class="menu">
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Bắc</a>
+                        <ul class="submenu">
+                            <li><a href="hanoi1.html">Hà Nội</a></li>
+                            <li><a href="quangninh1.html">Quảng Ninh</a></li>
+                            <li><a href="hagiang1.html">Hà Giang</a></li>
+                            <li><a href="haiphong1.html">Hải Phòng</a></li>
+                            <li><a href="laocai1.html">Lào Cai</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Trung</a>
+                        <ul class="submenu">
+                            <li><a href="danang1.html">Đà Nẵng</a></li>
+                            <li><a href="hue1.html">Thừa Thiên Huế</a></li>
+                            <li><a href="nghean1.html">Nghệ An</a></li>
+                            <li><a href="thanhhoa1.html">Thanh Hóa</a></li>
+                            <li><a href="quangnam1.html">Quảng Nam</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Nam</a>
+                        <ul class="submenu">
+                            <li><a href="hochiminh1.html">TP. Hồ Chí Minh</a></li>
+                            <li><a href="cantho1.html">Cần Thơ</a></li>
+                            <li><a href="binhduong1.html">Bình Dương</a></li>
+                            <li><a href="baria1.html">Bà Rịa Vũng Tàu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="ngonngu">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm điểm đến..." aria-label="Search destinations">
+                <span class="search-icon">🔍</span>
+                <span class="clear-search" title="Xóa tìm kiếm">✖</span>
+            </div>
+            <div id="dangky" onclick="window.location.href='./dangky.html'">Đăng ký</div>
+            <div id="dangnhap" onclick="window.location.href='./dangnhap.html'">Đăng nhập</div>
+            <div id="dangxuat" onclick="m2()">Đăng xuất</div>
+        </div>
+    </header>
+    <div class="filter-section">
+        <span class="filter-tag" data-tag="all">Tất cả</span>
+        <span class="filter-tag" data-tag="Sinh Thái">Sinh Thái</span>
+        <span class="filter-tag" data-tag="Thắng Cảnh">Thắng Cảnh</span>
+        <span class="filter-tag" data-tag="Nghỉ Dưỡng">Nghỉ Dưỡng</span>
+        <span class="filter-tag" data-tag="Giải Trí">Giải Trí</span>
+        <span class="filter-tag" data-tag="Văn Hóa">Văn Hóa</span>
+        <span class="filter-tag" data-tag="Bãi Biển">Bãi Biển</span>
+    </div>
+    <div class="container">
+        <div class="no-results">Không tìm thấy kết quả phù hợp.</div>
+        <div class="beach-section">
+        <h2>Danh lam thắng cảnh</h2>
+        <div class="destination-grid">
+            <div class="destination-card" data-tags="Văn Hóa Giải Trí Thắng Cảnh">
+                <div class="card-image">
+                         <a href="nhahatlonhp.html"><img src="https://sonhailimousine.com/upload/filemanager/nha-hat-lon-thanh-pho-hai-phong%20(7).png" alt="Nhà hát Lớn Hải Phòng tại Quảng trường Nhà hát"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="nhahatlonhp.html">Nhà hát Lớn Hải Phòng</a>
+                    <p class="card-description">Nhà hát Lớn Hải Phòng – <span data-tooltip="Biểu tượng kiến trúc thời Pháp thuộc">Biểu tượng văn hóa thành phố cảng</span>..</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Văn Hóa</span>
+                        <span class="travel-tag">Giải Trí</span>
+                        <span class="travel-tag">Thắng Cảnh</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Văn Hóa Thắng Cảnh">
+                <div class="card-image">
+                    <a href="baotanghp.html"> <img src="https://baohaiphong.vn/files/ecm/source_files/2024/10/09//682996a9-2343-48a1-8bc7-b9aa55185482-5f8d78b7-bdac-4d8a-b23c-77ea6a1613bd-bao-tang.png" alt="Mặt tiền Bảo tàng Hải Phòng với kiến trúc Pháp cổ"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="baotanghp.html">Bảo tàng Hải Phòng</a>
+                    <p class="card-description">Bảo tàng Hải Phòng – <span data-tooltip="Kho tàng lịch sử thành phố cảng">Kho tàng lịch sử thành phố cảng</span>.</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Văn Hóa</span>
+                        <span class="travel-tag">Thắng Cảnh</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Sinh Thái Văn Hóa">
+                <div class="card-image">
+                    <a href="nuivoi.html"><img src="https://sinhtour.vn/wp-content/uploads/2024/11/nui-voi-hai-phong.jpg" alt="Toàn cảnh Núi Voi với dãy núi đá vôi hùng vĩ tại An Lão, Hải Phòng"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="nuivoi.html">Núi Voi</a>
+  </div>
+                    <p class="card-description"> Núi Voi – <span data-tooltip="Quần thể di tích và danh thắng quốc gia Hải Phòng">Quần thể Sinh thái, Văn hóa và Di tích Lịch sử</span>..</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Sinh Thái</span>
+                        <span class="travel-tag">Văn Hóa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>Bãi biển nổi tiếng </h2>
+        <div class="destination-grid">
+            <div class="destination-card" data-tags="Sinh Thái Nghỉ Dưỡng Bãi Biển">
+                <div class="card-image">
+                   <a href="daocatba.html"> <img src="https://mia.vn/media/uploads/blog-du-lich/bai-tam-cat-co-1-1-1705444174.jpg" alt="Bãi biển Cát Cò 1 tại đảo Cát Bà"></a>
+      </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="daocatba.html">Đảo Cát Bà</a>
+                    <p class="card-description">Nằm trong quần đảo Cát Bà, thành phố Hải Phòng, đảo Cát Bà là điểm đến du lịch nổi tiếng với bãi biển tuyệt đẹp, rừng nguyên sinh, và hệ sinh thái đa dạng. ..</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Sinh Thái</span>
+                        <span class="travel-tag">Nghỉ Dưỡng</span>
+                        <span class="travel-tag">Bãi Biển</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Nghỉ Dưỡng Bãi Biển">
+                <div class="card-image">
+                    <a href="dosonhp.html"><img src="https://i2.ex-cdn.com/crystalbay.com/files/content/2024/10/17/bai-bien-do-son-1-1607.jpg" alt="Bãi biển Đồ Sơn với bãi cát vàng và sóng biển dịu dàng"></a>
+      </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="dosonhp.html">Bãi biển Đồ Sơn</a>
+                    <p class="card-description">Nằm tại quận Đồ Sơn, thành phố Hải Phòng, bãi biển Đồ Sơn là điểm đến du lịch nổi tiếng với bãi cát vàng, sóng biển dịu dàng và không khí trong lành. ..</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Nghỉ Dưỡng</span>
+                        <span class="travel-tag">Bãi Biển</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    <div id="khoangxanh"></div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="VivuWithTeam1 Footer Logo">
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>  
+      <div class="scroll-to-top">↑</div>
+    <div class="feedback-btn">✉</div>
+    <script src="main.js"></script>
+</body>
+</html>

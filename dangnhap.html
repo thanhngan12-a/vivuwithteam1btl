@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #89e2f8, #ffffff);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: auto;
+        }
+        .khung_form {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 280px;
+            backdrop-filter: blur(10px);
+        }
+        .khung_form h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .khung_form input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+        .khung_form input:focus {
+            outline: none;
+            border-color: #74ebd5;
+            box-shadow: 0 0 8px rgba(116, 235, 213, 0.3);
+        }
+        .khung_form label {
+            position: absolute;
+            top: 10px;
+            left: 14px;
+            color: #666;
+            font-size: 1rem;
+            transition: all 0.2s;
+            pointer-events: none;
+            background: transparent;
+        }
+        .khung_form input:focus + label,
+        .khung_form input:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 12px;
+            font-size: 0.8rem;
+            color: #74ebd5;
+            background: white;
+            padding: 0 4px;
+        }
+        .khung_form button {
+            width: 100%;
+            background: linear-gradient(90deg, #74ebd5, #acb6e5);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 0.5rem;
+        }
+        .khung_form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .khung_form button:active {
+            transform: translateY(0);
+        }
+        .error {
+            font-size: 0.85rem;
+            color: #e74c3c;
+            margin-top: 4px;
+            display: block;
+            min-height: 1.2rem;
+        }
+        @media (max-width: 480px) {
+            .khung_form {
+                padding: 1rem;
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="khung_form">
+    <h2>Đăng Nhập</h2>
+    <div class="input-group">
+        <input type="text" name="ten_dang_nhap" id="ten_dang_nhap" placeholder=" " required minlength="3">
+        <label for="ten_dang_nhap">Tên đăng nhập</label>
+        <span id="usertb" class="error"></span>
+    </div>
+    <div class="input-group">
+        <input type="password" name="mat_khau" id="mat_khau" placeholder=" " required minlength="8" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+        <label for="mat_khau">Mật khẩu</label>
+        <span id="passtb" class="error"></span>
+    </div>
+    <button onclick="m1()" type="button" id="nut_dang_nhap">Đăng Nhập</button>
+</div>
+<script>
+function m1() {
+    const username = document.getElementById("ten_dang_nhap").value;
+    const password = document.getElementById("mat_khau").value;
+    const usertb = document.getElementById("usertb");
+    const passtb = document.getElementById("passtb");
+
+    // Reset error messages
+    usertb.innerText = "";
+    passtb.innerText = "";
+
+    // Validate username
+    if (username === "") {
+        usertb.innerText = "Vui lòng không để trống tài khoản";
+        return;
+    }
+    if (username.length < 3) {
+        usertb.innerText = "Tên đăng nhập phải có ít nhất 3 ký tự";
+        return;
+    }
+
+    // Validate password
+    if (password === "") {
+        passtb.innerText = "Vui lòng không để trống mật khẩu";
+        return;
+    }
+    if (!password.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)) {
+        passtb.innerText = "Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số";
+        return;
+    }
+
+    // Check credentials against sessionStorage
+    const storedUsername = sessionStorage.getItem("tk") || "";
+    const storedPassword = sessionStorage.getItem("mk") || "";
+    
+    if (username !== storedUsername || password !== storedPassword) {
+        passtb.innerText = "Tài khoản hoặc mật khẩu không đúng";
+        return;
+    }
+
+    // Successful login
+    sessionStorage.setItem("trangthai", "hien");
+    alert("Đăng nhập thành công!");
+    window.location.href = "index.html";
+}
+</script>
+</body>
+</html>

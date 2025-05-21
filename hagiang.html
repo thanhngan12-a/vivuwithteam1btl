@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm Đến Hà Giang</title>
+    <link rel="stylesheet" href="style.css">    
+</head>
+<body>
+    
+    <div class="feedback-modal">
+        <div class="feedback-modal-content">
+            <span class="feedback-modal-close">×</span>
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Gửi Phản Hồi</h2>
+            <form class="feedback-form">
+                <div>
+                    <label for="feedback-name"><span class="text-gray-600">👤</span> Tên</label>
+                    <input type="text" id="feedback-name" placeholder="Nhập tên của bạn" required>
+                </div>
+                <div>
+                    <label for="feedback-email"><span class="text-gray-600">📧</span> Email</label>
+                    <input type="email" id="feedback-email" placeholder="Nhập email của bạn" required>
+                    <div id="email-error" class="error-message">Vui lòng nhập email hợp lệ (ví dụ: example@domain.com)</div>
+                </div>
+                <div>
+                    <label for="feedback-message"><span class="text-gray-600">✍️</span> Nội dung phản hồi</label>
+                    <textarea id="feedback-message" rows="4" placeholder="Nhập nội dung phản hồi" required></textarea>
+                </div>
+                <div class="file-input-wrapper">
+                    <label for="feedback-image"><span class="text-gray-600">📷</span> Tải ảnh lên (tùy chọn)</label>
+                    <input type="file" id="feedback-image" accept="image/*">
+                    <img id="image-preview" class="image-preview" alt="Preview ảnh phản hồi">
+                </div>
+                <button type="submit" id="submit-feedback">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="success-toast">Gửi thành công!</div>
+    <header class="tieude">
+        <div class="logo-box">
+               <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <button class="hamburger" aria-label="Toggle menu">☰</button>
+        <nav class="dieuhuong">
+            <div id="div_dieuhuong">
+                <a href="index.html" class="homepage">Trang chủ</a>
+                <ul class="menu">
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Bắc</a>
+                        <ul class="submenu">
+                            <li><a href="hanoi1.html">Hà Nội</a></li>
+                            <li><a href="quangninh1.html">Quảng Ninh</a></li>
+                            <li><a href="hagiang1.html">Hà Giang</a></li>
+                            <li><a href="haiphong1.html">Hải Phòng</a></li>
+                            <li><a href="laocai1.html">Lào Cai</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Trung</a>
+                        <ul class="submenu">
+                            <li><a href="danang1.html">Đà Nẵng</a></li>
+                            <li><a href="hue1.html">Thừa Thiên Huế</a></li>
+                            <li><a href="nghean1.html">Nghệ An</a></li>
+                            <li><a href="thanhhoa1.html">Thanh Hóa</a></li>
+                            <li><a href="quangnam1.html">Quảng Nam</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Nam</a>
+                        <ul class="submenu">
+                            <li><a href="hochiminh1.html">TP. Hồ Chí Minh</a></li>
+                            <li><a href="cantho1.html">Cần Thơ</a></li>
+                            <li><a href="binhduong1.html">Bình Dương</a></li>
+                            <li><a href="baria1.html">Bà Rịa Vũng Tàu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="ngonngu">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm điểm đến..." aria-label="Search destinations">
+                <span class="search-icon">🔍</span>
+                <span class="clear-search" title="Xóa tìm kiếm">✖</span>
+            </div>
+            <div id="dangky" onclick="window.location.href='./dangky.html'">Đăng ký</div>
+            <div id="dangnhap" onclick="window.location.href='./dangnhap.html'">Đăng nhập</div>
+            <div id="dangxuat" onclick="m2()">Đăng xuất</div>
+        </div>
+    </header>
+    <div class="filter-section">
+        <span class="filter-tag" data-tag="all">Tất cả</span>
+        <span class="filter-tag" data-tag="Mạo Hiểm">Mạo Hiểm</span>
+        <span class="filter-tag" data-tag="Thắng Cảnh">Thắng Cảnh</span>
+        <span class="filter-tag" data-tag="Khám Phá">Khám Phá</span>
+        <span class="filter-tag" data-tag="Sinh Thái">Sinh Thái</span>
+        <span class="filter-tag" data-tag="Văn Hóa">Văn Hóa</span>
+        <span class="filter-tag" data-tag="Lịch Sử">Lịch Sử</span>
+    </div>
+    <div class="container">
+        <div class="no-results">Không tìm thấy kết quả phù hợp.</div>
+        <div class="beach-section">
+        <h2>Danh lam thắng cảnh</h2>
+        <div class="destination-grid">
+            <div class="destination-card" data-tags="Văn Hóa Khám Phá Thắng Cảnh">
+                <div class="card-image">
+                    <a href="cotcolungcu.html"> <img src="https://giaytrekking.com/wp-content/uploads/2024/04/Lung-Cu-Ha-Giang.jpg" alt="Cột cờ Lũng Cú với lá cờ 54 m² trên cao nguyên đá"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="cotcolungcu.html">Cột cờ Lũng Cú</a>
+                    <p class="card-description">Nằm trên cao nguyên đá Đồng Văn, <span data-tooltip="Biểu tượng chủ quyền cực Bắc Việt Nam tại Hà Giang">Cột cờ Lũng Cú</span> là biểu tượng chủ quyền, nơi lá cờ 54 m² tung bay trên đỉnh núi Rồng, hòa quyện với văn hóa dân tộc H’Mông, Lô Lô, và sắc màu <span data-tooltip="Loài hoa đặc trưng nở tháng 10–12 trên cao nguyên đá">hoa tam giác mạch</span>...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Văn Hóa</span>
+                        <span class="travel-tag">Khám Phá</span>
+                        <span class="travel-tag">Thắng Cảnh</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Mạo Hiểm Khám Phá Thắng Cảnh">
+                <div class="card-image">
+                    <a href="deopileng.html"><img src="https://media.vietnamplus.vn/images/cbcefaf4d666e853b98508d61b34244153576c8c0a6f6b5fe19ee90d2e53d3e544ecc8eb2e8e77fa5a683218b3a36c30d8dff7223b28e6b9fed38952fb5c603d/shutterstock_1068209438_1.jpg" alt="Đèo Mã Pí Lèng với hẻm Tu Sản và sông Nho Quế"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="deopileng.html">Đèo Mã Pí Lèng</a>
+                    <p class="card-description">Nằm trên <span data-tooltip="Con đường lịch sử nối Hà Giang, Đồng Văn, Mèo Vạc">con đường Hạnh Phúc</span>, <span data-tooltip="Một trong tứ đại đỉnh đèo Việt Nam tại Hà Giang">Đèo Mã Pí Lèng</span> mê hoặc du khách với hẻm Tu Sản, <span data-tooltip="Dòng sông xanh ngọc bích chảy qua hẻm vực Tu Sản">sông Nho Quế</span>, và văn hóa H’Mông, là điểm đến phiêu lưu không thể bỏ qua...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Mạo Hiểm</span>
+                        <span class="travel-tag">Khám Phá</span>
+                        <span class="travel-tag">Thắng Cảnh</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Sinh Thái Thắng Cảnh">
+                <div class="card-image">
+                    <a href="thacbangioc.html"><img src="https://i1-dulich.vnecdn.net/2019/10/04/tha-c-ba-n-gio-c-vnexpress-3-1570193124.jpg?w=1200&h=0&q=100&dpr=2&fit=crop&s=iKAevQ6Xf-gUp-k02DWERQ" alt="Thác Bản Giốc với dòng nước xanh ngọc bích"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="thacbangioc.html">Thác Bản Giốc</a>
+                    <p class="card-description">Nằm trên <span data-tooltip="Dòng sông xanh ngọc bích tại biên giới Việt-Trung">sông Quây Sơn</span>, <span data-tooltip="Thác nước hùng vĩ trên biên giới Việt-Trung tại Cao Bằng">Thác Bản Giốc</span> mê hoặc du khách với dòng thác hùng vĩ, văn hóa Tày-Nùng, và cảnh quan <span data-tooltip="Tỉnh Đông Bắc với Công viên địa chất Non Nước Cao Bằng">Cao Bằng</span>, là điểm đến không thể bỏ qua...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Nghỉ Dưỡng</span>
+                        <span class="travel-tag">Thắng Cảnh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>Di tích lịch sử</h2>
+        <div class="destination-grid">
+            <div class="destination-card" data-tags="Khám Phá Lịch Sử Văn Hóa">
+                <div class="card-image">
+                     <a href="phocodongvan.html"> <img src="https://sinhtour.vn/wp-content/uploads/2023/12/pho-co-dong-van-ha-giang.jpg" alt="Phố cổ Đồng Văn với nhà cổ và núi đá"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="phocodongvan.html">Phố cổ Đồng Văn</a>
+                    <p class="card-description">Nằm trong <span data-tooltip="Công viên địa chất UNESCO với núi đá vôi và văn hóa đa dân tộc">cao nguyên đá Đồng Văn</span>, <span data-tooltip="Khu phố hơn 100 năm tuổi trên cao nguyên đá Hà Giang">Phố cổ Đồng Văn</span> mê hoặc du khách với nhà cổ H’Mông, <span data-tooltip="Chợ truyền thống sôi động vào Chủ nhật">chợ phiên Đồng Văn</span>, và văn hóa đa dân tộc của <span data-tooltip="Tỉnh biên giới Đông Bắc với cảnh quan hùng vĩ">Hà Giang</span>...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Khám Phá</span>
+                        <span class="travel-tag">Văn Hóa</span>
+                        <span class="travel-tag">Lịch Sử</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Lịch Sử Sinh Thái Khám Phá">
+                <div class="card-image">
+                    <a href="pacbo.html"> <img src="https://yootek.vn/wp-content/uploads/2024/12/suoi-lenin-khu-di-tich-lich-su-pac-bo.jpg" alt="Khu di tích Pác Bó với suối Lê-nin và núi Các Mác"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="pacbo.html">Khu di tích Pác Bó</a>
+                    <p class="card-description">Nằm trong lòng <span data-tooltip="Tỉnh Đông Bắc với Công viên địa chất Non Nước Cao Bằng">Cao Bằng</span>, <span data-tooltip="Di tích lịch sử cách mạng nơi Hồ Chí Minh hoạt động 1941–1945">Khu di tích Pác Bó</span> lưu dấu hành trình cách mạng của Chủ tịch Hồ Chí Minh, với <span data-tooltip="Dòng suối xanh ngọc gắn với tên gọi của Hồ Chí Minh">suối Lê-nin</span>, <span data-tooltip="Ngọn núi mang tên nhà tư tưởng cách mạng">núi Các Mác</span>, và văn hóa Tày-Nùng...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Lịch Sử</span>
+                        <span class="travel-tag">Sinh Thái</span>
+                        <span class="travel-tag">Khám Phá</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Lịch Sử Văn Hóa">
+                <div class="card-image">
+                    <a href="donphap.html"><img src="https://travelviet.net/s3_amazon/3219521a-779c-4bcf-a4c8-8d6a6db45e46-20210501-093543jpg20240506104330.jpg" alt="Di tích Đồn Pháp Lũng Hồ trên cao nguyên đá"></a>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="donphap.html">Di tích Đồn Pháp và Tường thành Lũng Hồ</a>
+                    <p class="card-description">Nằm trong lòng <span data-tooltip="Tỉnh miền núi với Công viên địa chất Đồng Văn">Hà Giang</span>, <span data-tooltip="Công trình quân sự thời Pháp thuộc tại Hà Giang">Di tích Đồn Pháp và Tường thành Lũng Hồ</span> là chứng nhân thời Pháp thuộc, kết hợp văn hóa H’Mông-Tày và vẻ đẹp <span data-tooltip="Vùng địa chất đá vôi độc đáo">Cao nguyên đá Đồng Văn</span>...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Lịch Sử</span>
+                        <span class="travel-tag">Văn Hóa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+    <div id="khoangxanh"></div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                     <img src="logo5.png" alt="VivuWithTeam1 Footer Logo">
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+    <div class="scroll-to-top">↑</div>
+    <div class="feedback-btn">✉</div>
+    <script src="main.js"></script>
+</body>
+</html>

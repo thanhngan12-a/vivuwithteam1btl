@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm Đến Bà Rịa - Vũng Tàu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="feedback-modal">
+        <div class="feedback-modal-content">
+            <span class="feedback-modal-close">×</span>
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Gửi Phản Hồi</h2>
+            <form class="feedback-form">
+                <div>
+                    <label for="feedback-name"><span class="text-gray-600">👤</span> Tên</label>
+                    <input type="text" id="feedback-name" placeholder="Nhập tên của bạn" required>
+                </div>
+                <div>
+                    <label for="feedback-email"><span class="text-gray-600">📧</span> Email</label>
+                    <input type="email" id="feedback-email" placeholder="Nhập email của bạn" required>
+                    <div id="email-error" class="error-message">Vui lòng nhập email hợp lệ (ví dụ: example@domain.com)</div>
+                </div>
+                <div>
+                    <label for="feedback-message"><span class="text-gray-600">✍️</span> Nội dung phản hồi</label>
+                    <textarea id="feedback-message" rows="4" placeholder="Nhập nội dung phản hồi" required></textarea>
+                </div>
+                <div class="file-input-wrapper">
+                    <label for="feedback-image"><span class="text-gray-600">📷</span> Tải ảnh lên (tùy chọn)</label>
+                    <input type="file" id="feedback-image" accept="image/*">
+                    <img id="image-preview" class="image-preview" alt="Preview ảnh phản hồi">
+                </div>
+                <button type="submit" id="submit-feedback">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="success-toast">Gửi thành công!</div>
+    <header class="tieude">
+        <div class="logo-box">
+               <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <button class="hamburger" aria-label="Toggle menu">☰</button>
+        <nav class="dieuhuong">
+            <div id="div_dieuhuong">
+                <a href="index.html">Trang chủ</a>
+                <ul class="menu">
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Bắc</a>
+                        <ul class="submenu">
+                            <li><a href="hanoi1.html">Hà Nội</a></li>
+                            <li><a href="quangninh1.html">Quảng Ninh</a></li>
+                            <li><a href="hagiang1.html">Hà Giang</a></li>
+                            <li><a href="haiphong1.html">Hải Phòng</a></li>
+                            <li><a href="laocai1.html">Lào Cai</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Trung</a>
+                        <ul class="submenu">
+                            <li><a href="danang1.html">Đà Nẵng</a></li>
+                            <li><a href="hue1.html">Thừa Thiên Huế</a></li>
+                            <li><a href="nghean1.html">Nghệ An</a></li>
+                            <li><a href="thanhhoa1.html">Thanh Hóa</a></li>
+                            <li><a href="quangnam1.html">Quảng Nam</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Nam</a>
+                        <ul class="submenu">
+                            <li><a href="hochiminh1.html">TP. Hồ Chí Minh</a></li>
+                            <li><a href="cantho1.html">Cần Thơ</a></li>
+                            <li><a href="binhduong1.html">Bình Dương</a></li>
+                            <li><a href="baria1.html">Bà Rịa Vũng Tàu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="ngonngu">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm điểm đến..." aria-label="Search destinations">
+                <span class="search-icon">🔍</span>
+                <span class="clear-search" title="Xóa tìm kiếm">✖</span>
+            </div>
+            <div id="dangky" onclick="window.location.href='./dangky.html'">Đăng ký</div>
+            <div id="dangnhap" onclick="window.location.href='./dangnhap.html'">Đăng nhập</div>
+            <div id="dangxuat" onclick="m2()">Đăng xuất</div>
+        </div>
+    </header>
+    <div class="filter-section">
+        <span class="filter-tag" data-tag="all">Tất cả</span>
+        <span class="filter-tag" data-tag="Thắng Cảnh">Thắng Cảnh</span>
+        <span class="filter-tag" data-tag="Sinh Thái">Sinh Thái</span>
+        <span class="filter-tag" data-tag="Nghỉ Dưỡng">Nghỉ Dưỡng</span>
+        <span class="filter-tag" data-tag="Giải Trí">Giải Trí</span>
+        <span class="filter-tag" data-tag="Khám Phá">Khám Phá</span>
+         <span class="filter-tag" data-tag="Thể Thao">Thể Thao</span>
+        <span class="filter-tag" data-tag="Lịch Sử">Lịch Sử</span>
+        <span class="filter-tag" data-tag="Văn Hóa">Văn Hóa</span>
+        <span class="filter-tag" data-tag="Bãi Biển">Bãi Biển</span>
+    </div>
+    <div class="container">
+        <div class="no-results">Không tìm thấy kết quả phù hợp.</div>
+        <div class="beach-section">
+            <h2>Danh lam thắng cảnh</h2>
+            <div class="destination-grid">
+                <div class="destination-card" data-tags="Sinh Thái Giải Trí Thể Thao ">
+                    <div class="card-image">
+                        <a href="daongoc.html"><img src="https://bariavungtautourism.com.vn/wp-content/uploads/2024/01/dao-ngon-vung-tau-07.jpg" alt="Bãi biển trong xanh tại Đảo Ngọc Vũng Tàu (Cù Lao Bãi Ngựa)"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="daongoc.html">Cù Lao Bãi Ngựa</a>
+                        <p class="card-description">Cách <span data-tooltip="Thành phố biển nổi tiếng miền Nam">Vũng Tàu</span> 3 km, <span data-tooltip="Tên gọi khác của Đảo Ngọc">Cù Lao Bãi Ngựa</span> mê hoặc với bãi biển trong xanh, <span data-tooltip="Hệ sinh thái biển đa dạng">san hô</span> gần bờ, lặn biển, và cắm trại...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Sinh Thái</span>
+                            <span class="travel-tag">Giải Trí</span>
+                            <span class="travel-tag">Thể Thao</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Giải Trí Sinh Thái Thắng Cảnh">
+                    <div class="card-image">
+                        <a href="doicuu.html"><img src="https://cdn3.ivivu.com/2023/03/%C4%90%E1%BB%93ng-c%E1%BB%ABu-Su%E1%BB%91i-Ngh%E1%BB%87-ivivu-11.jpg" alt="Đồng cỏ xanh và đàn cừu tại Đồi Cừu Suối Nghệ"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="doicuu.html">Vũng Tàu</a>
+                        <p class="card-description">Thuộc Châu Đức, cách <span data-tooltip="Thành phố biển nổi tiếng miền Nam">Vũng Tàu</span> 30 km, <span data-tooltip="Xã có đồng cỏ và đàn cừu">Suối Nghệ</span> mê hoặc với <span data-tooltip="Cảnh quan đồng quê xanh mát">đồng cỏ</span> xanh, đàn cừu, và trải nghiệm chăn nuôi...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Giải Trí</span>
+                             <span class="travel-tag">Sinh Thái</span>
+                            <span class="travel-tag">Thắng Cảnh</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Sinh Thái Khám Phá ">
+                    <div class="card-image">
+                        <a href="baotonbinhchau.html"><img src="https://file.hstatic.net/200000504041/file/kdl-binh-chau-phuoc-buu_6577db8a42e8406a80c58befbd6c7273_grande.jpg" alt="Khu bảo tồn thiên nhiên Bình Châu-Phước Bửu với rừng xanh và suối khoáng nóng"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="baotonbinhchau.html">Khu bảo tồn thiên nhiên Bình Châu </a>
+                        <p class="card-description">Tọa lạc tại Xuyên Mộc, khu bảo tồn nổi bật với <span data-tooltip="Hệ sinh thái rừng mưa nhiệt đới">rừng mưa nhiệt đới</span>, <span data-tooltip="Suối nước nóng giàu khoáng chất">Suối khoáng nóng Bình Châu</span>, <span data-tooltip="Bãi biển dài 17 km ít phát triển">bãi biển hoang sơ</span>, và <span data-tooltip="Nơi bảo vệ gấu, vượn, tê tê">trung tâm cứu hộ động vật</span>, mang đến hành trình khám phá thiên nhiên và thư giãn...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Sinh Thái</span>
+                            <span class="travel-tag">Khám Phá</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Giải Trí Khám Phá Thắng Cảnh">
+                    <div class="card-image">
+                        <a href="hodaxanh.html"><img src="https://bariavungtautourism.com.vn/wp-content/uploads/2024/01/ho-da-xanh-vung-tau-1.jpg" alt="Hồ Đá Xanh với làn nước xanh biếc và cầu gỗ giữa Núi Dinh"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="hodaxanh.html">Hồ Đá Xanh</a>
+                        <p class="card-description">Nằm tại phường Kim Dinh, <span data-tooltip="Hồ nước xanh biếc tại Vũng Tàu">Hồ Đá Xanh</span> mê hoặc du khách với làn nước xanh ngọc bích, <span data-tooltip="Ngọn núi hùng vĩ gần hồ">Núi Dinh</span>, <span data-tooltip="Cầu gỗ bắc qua hồ">cầu gỗ</span>, xích đu, và đàn cừu, là điểm đến lý tưởng cho <span data-tooltip="Chụp ảnh đẹp cho mạng xã hội">sống ảo</span>, dã ngoại, và khám phá <span data-tooltip="Cảnh núi và hồ thơ mộng">khung cảnh non nước</span>...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Giải Trí</span>
+                             <span class="travel-tag">Khám Phá</span>
+                            <span class="travel-tag">Thắng Cảnh</span>
+                        </div>
+                    </div>
+            </div>
+        </div>    
+            <h2>Di tích lịch sử</h2>
+            <div class="destination-grid">
+                <div class="destination-card" data-tags="Lịch Sử Sinh Thái Khám Phá">
+                    <div class="card-image">
+                        <a href="honba.html"><img src="https://chamkhanhhoa.com/wp-content/uploads/2022/03/hon-ba-cam-lam-khanh-hoa.jpg" alt="Núi Hòn Bà với rừng nguyên sinh và mây mù"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="honba.html">Hòn Bà</a>
+                        <p class="card-description">Thuộc Suối Cát, cách <span data-tooltip="Thành phố biển nổi tiếng miền Nam">Vũng Tàu</span> 60 km, <span data-tooltip="Xã có núi Hòn Bà">Suối Cát</span> mê hoặc với <span data-tooltip="Rừng xanh và đa dạng sinh học">rừng nguyên sinh</span>, thác nước, và đền thờ linh thiêng...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Lịch Sử</span>
+                            <span class="travel-tag">Sinh Thái</span>
+                            <span class="travel-tag">Khám Phá</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Lịch Sử Văn Hóa Khám Phá">
+                    <div class="card-image">
+                        <a href="nuithivai.html"><img src="https://trekking-camping.com/wp-content/uploads/2025/03/nui-thi-vai6.jpg" alt="Núi Thị Vải với rừng xanh và chùa tâm linh"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="nuithivai.html">Núi Thị Vải</a>
+                        <p class="card-description">Nằm tại huyện Tân Thành, <span data-tooltip="Núi tâm linh tại Bà Rịa - Vũng Tàu">Núi Thị Vải</span> mê hoặc với núi rừng xanh mướt, các ngôi chùa như <span data-tooltip="Chùa cổ lưng chừng núi">Hồng Phúc</span>, <span data-tooltip="Chùa thiền gần đỉnh núi">Linh Sơn Bửu Thiền</span>, và <span data-tooltip="Khu chùa lớn nhất Vũng Tàu">Đại Tòng Lâm</span>, cùng hành trình leo núi đầy cảm hứng..</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Văn Hóa</span>
+                            <span class="travel-tag">Lịch Sử</span>
+                            <span class="travel-tag">Khám Phá</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Lịch Sử Sinh Thái Nghỉ Dưỡng">
+                    <div class="card-image">
+                        <a href="nuidinh.html"><img src="https://i1-kinhdoanh.vnecdn.net/2024/11/20/ho-8965-1662538781-5625-1732076586.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=FBBx651y6qFOYG1d041JOQ" alt="Núi Dinh với rừng xanh và không khí trong lành"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="nuidinh.html">Núi Dinh</a>
+                        <p class="card-description">Nằm tại TX. Phú Mỹ, <span data-tooltip="Núi trekking và tâm linh tại Bà Rịa - Vũng Tàu">Núi Dinh</span> mê hoặc với <span data-tooltip="Suối trong xanh giữa rừng">Suối Tiên</span>, <span data-tooltip="Chùa với tượng Phật 10 tấn">Hang Mai</span>, <span data-tooltip="Chùa lâu đời với đàn khỉ">Tây Phương</span>, và <span data-tooltip="Đỉnh cao nhất Núi Dinh">La Bàn</span>, kết hợp thiên nhiên, tâm linh, và lịch sử....</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Lịch Sử</span>
+                            <span class="travel-tag">Sinh Thái</span>
+                              <span class="travel-tag">Nghỉ Dưỡng</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Lịch Sử Văn Hóa">
+                    <div class="card-image">
+                        <a href="diadaolongphuoc.html"><img src="https://xesaigondivungtau.com/wp-content/uploads/2024/12/Dia-dao-Long-Phuoc.jpg" alt="Địa đạo Long Phước không gian lịch sử"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="diadaolongphuoc.html">Địa đạo Long Phước</a>
+                        <p class="card-description">Tọa lạc tại TP. Bà Rịa, <span data-tooltip="Di tích kháng chiến chống Mỹ tại Bà Rịa">Địa đạo Long Phước</span> là chứng nhân lịch sử với <span data-tooltip="Bảo tàng hiện vật kháng chiến">Khu trưng bày</span>, <span data-tooltip="Hầm hẹp dùng để phục kích">Hầm chiến đấu</span>, <span data-tooltip="Hầm sinh hoạt của du kích">Hầm sinh hoạt</span>, và <span data-tooltip="Khu mô phỏng trận đánh">Khu tái hiện chiến trường</span>, mang đến hành trình khám phá lịch sử và lòng yêu nước...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Lịch Sử</span>
+                            <span class="travel-tag">Văn Hóa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2>Bãi biển nổi tiếng</h2>
+            <div class="destination-grid">
+                <div class="destination-card" data-tags="Bãi Biển Nghỉ Dưỡng Giải Trí">
+                    <div class="card-image">
+                        <a href="baitruoc.html"><img src="https://www.vietfuntravel.com.vn/image/data/Vung-Tau/du-lich-vung-tau-cong-vien-bai-truoc-h1.jpg" alt="Bãi Trước Vũng Tàu với bãi biển và công viên xanh"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="baitruoc.html">Bãi Trước Vũng Tàu</a>
+                        <p class="card-description">Nằm tại trung tâm <span data-tooltip="Thành phố biển nổi tiếng miền Nam">Vũng Tàu</span>, <span data-tooltip="Bãi biển trung tâm Vũng Tàu">Bãi Trước</span> mê hoặc với <span data-tooltip="Bãi biển dài và cát mịn">bãi biển</span> sạch, công viên xanh, và <span data-tooltip="Cảnh hoàng hôn lãng mạn">hoàng hôn</span> rực rỡ...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Bãi Biển</span>
+                            <span class="travel-tag">Nghỉ Dưỡng</span>
+                             <span class="travel-tag">Giải Trí</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Bãi Biển Nghỉ Dưỡng Sinh Thái">
+                    <div class="card-image">
+                        <a href="baisau.html"><img src="https://bariavungtautourism.com.vn/wp-content/uploads/2024/04/nen-di-bai-truoc-hay-bai-sau-7.jpg" alt="Bãi Sau Vũng Tàu với bãi biển dài và sóng mạnh"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="baisau.html">Bãi Sau Vũng Tàu</a>
+                        <p class="card-description">Nằm tại phường Thắng Tam, <span data-tooltip="Thành phố biển nổi tiếng miền Nam">Vũng Tàu</span>, <span data-tooltip="Bãi biển dài nhất Vũng Tàu">Bãi Sau</span> thu hút với <span data-tooltip="Bãi biển dài và sóng mạnh">bãi biển</span> dài, sóng mạnh, thể thao biển, và đường Thùy Vân sôi động..</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Bãi Biển</span>
+                            <span class="travel-tag">Nghỉ Dưỡng</span>
+                             <span class="travel-tag">Sinh Thái</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags= "Nghỉ Dưỡng Khám Phá">
+                    <div class="card-image">
+                        <a href="bienlocan.html"><img src="https://statics.vntrip.vn/data-v2/data-guide/img_content/1461732137_loc-an-vung-tau-2.jpg" alt="Biển Lộc An với bãi cát trắng và nước biển trong xanh"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="bienlocan.html">Biển Lộc An</a>
+                        <p class="card-description">Biển Lộc An</span> – Viên ngọc hoang sơ Vũng Tàu...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Nghỉ Dưỡng</span>
+                             <span class="travel-tag">Khám Phá</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Bãi Biển Nghỉ Dưỡng">
+                    <div class="card-image">
+                        <a href="bienhotram.html"><img src="http://nld.mediacdn.vn/2020/8/25/photo-1-15983238728581538887797.jpg" alt="Biển Hồ Tràm với cát trắng và nước xanh ngọc"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="bienhotram.html">Biển Hồ Tràm</a>
+                        <p class="card-description">Nằm tại huyện Xuyên Mộc, <span data-tooltip="Bãi biển hoang sơ tại huyện Xuyên Mộc, Vũng Tàu">Biển Hồ Tràm</span> mê hoặc du khách với cát trắng mịn, nước xanh ngọc, văn hóa làng chài, và <span data-tooltip="Rừng tự nhiên gần Hồ Tràm">rừng nguyên sinh</span>, lý tưởng cho tắm biển, cắm trại, thưởng thức <span data-tooltip="Tôm, cua, mực, ghẹ tươi ngon">hải sản</span>, và khám phá thiên nhiên...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Bãi Biển</span>
+                            <span class="travel-tag">Nghỉ Dưỡng</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="VivuWithTeam1 Footer Logo">
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>  
+    <div class="scroll-to-top">↑</div>
+    <div class="feedback-btn">✉</div>
+    <script src="main.js"></script>
+</body>
+</html>

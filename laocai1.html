@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá Lào Cai qua bản đồ tương tác, thông tin cơ bản về con người, khí hậu, lịch sử, văn hóa, địa lý, ẩm thực, với các tính năng tương tác như modal hình ảnh, cuộn mượt, thời tiết, đánh dấu yêu thích, chuyển đổi bản đồ, và biểu mẫu phản hồi với thông báo thành công.">
+    <link rel="icon" type="image/png" href="https://x.ai/favicon.ico">
+    <title>Lào Cai – Bản Đồ và Thông Tin</title>
+   <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <button class="close-button" onclick="window.location.href='laocai.html'" aria-label="Đóng trang và chuyển đến Điểm Đến Lào Cai" data-tooltip="Đóng trang và trở về Điểm Đến Lào Cai">
+        <span>✕</span> Đóng
+    </button>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('map-section')">Xem Bản Đồ</button>
+            <button class="nav-button" onclick="scrollToSection('info-section')">Thông Tin</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="map-section" id="map-section">
+            <h2 data-tooltip="Bản đồ định vị Lào Cai">Bản Đồ Lào Cai</h2>
+            <div class="map-container" aria-label="Bản đồ tương tác của Lào Cai">
+                <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.110378947446!2d103.96548331504705!3d22.50356188521302!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x36cd41b8b8b8b8b9%3A0x5d5d5d5d5d5d5d5d!2sLao%20Cai%2C%20Vietnam!5e0!3m2!1sen!2s!4v1698765432109!5m2!1sen!2s"></iframe>
+            </div>
+            <p class="map-caption" id="mapCaption">Bản đồ định vị thành phố Lào Cai, cửa ngõ giao thương và du lịch vùng Tây Bắc.</p>
+            <div class="map-controls">
+                <button class="map-control-button" onclick="changeMap('laocai')">Thành phố Lào Cai</button>
+                <button class="map-control-button" onclick="changeMap('sapa')">Sa Pa</button>
+                <button class="map-control-button" onclick="changeMap('bacha')">Bắc Hà</button>
+            </div>
+        </div>
+        <div class="info-section" id="info-section">
+            <h2>Thông Tin Cơ Bản Về Lào Cai</h2>
+            <div class="info-grid">
+                <div class="info-card" data-id="connguoi">
+                    <img src="https://vufo.org.vn/data/data/quynhhoa/2023/03/laocai.png" alt="Con người Lào Cai" data-caption="Người dân H’Mông và Dao tại Lào Cai">
+                    <button class="favorite-button" onclick="toggleFavorite('connguoi')" aria-label="Đánh dấu yêu thích Con Người">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa và con người Lào Cai">Con Người</h3>
+                        <p>Người dân Lào Cai, với đa số là các dân tộc thiểu số như H’Mông, Dao, Tày, nổi tiếng với sự chân thành, mến khách và tinh thần bền bỉ. Họ sống hài hòa với thiên nhiên, gìn giữ bản sắc văn hóa độc đáo qua các chợ phiên và lễ hội truyền thống.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="khihau">
+                    <img src="https://jcweather.com/wp-content/uploads/2024/05/net-dac-sac-khi-hau-lao-cai.jpg" alt="Khí hậu Lào Cai" data-caption="Khí hậu ôn đới tại Sa Pa, Lào Cai">
+                    <button class="favorite-button" onclick="toggleFavorite('khihau')" aria-label="Đánh dấu yêu thích Khí Hậu">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Khí hậu đặc trưng của Lào Cai">Khí Hậu</h3>
+                        <p>Lào Cai có khí hậu cận nhiệt đới ẩm, với mùa hè ấm (tháng 5-9) và mùa đông lạnh (tháng 11-3). Nhiệt độ trung bình từ 10°C vào mùa đông đến 30°C vào mùa hè. Đặc biệt, Sa Pa có khí hậu ôn đới, lý tưởng cho du lịch quanh năm.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="lichsu">
+                    <img src="https://cdn.baolaocai.vn/images/bcd0b69da21a4979515fc7cd82e14a6a972923a9dbb692bd10d933be0b00d649c455a07c2d1893943b9649107e1dc851d9ed7106d626545e9168a7ed83e74e0f013f61b5c3678d871f18f12d951c3a94/458b694f4bb4e9eab0a5-9166.jpg.webp" alt="Lịch sử Lào Cai" data-caption="Đền Thượng, di tích lịch sử tại Lào Cai">
+                    <button class="favorite-button" onclick="toggleFavorite('lichsu')" aria-label="Đánh dấu yêu thích Lịch Sử">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Lịch sử lâu đời của Lào Cai">Lịch Sử</h3>
+                        <p>Lào Cai có lịch sử lâu đời, là vùng đất giao thoa văn hóa giữa các dân tộc Tây Bắc và Trung Quốc. Từng là trung tâm thương mại quan trọng thời Pháp thuộc, tỉnh này cũng đóng vai trò trong các cuộc kháng chiến, với các di tích như đền Thượng.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="vanhoa">
+                    <img src="https://bvhttdl.mediacdn.vn/2020/6/9/2-15916713074191262543043-1591672072357-1591672072692282459383.jpg" alt="Văn hóa Lào Cai" data-caption="Lễ hội Gầu Tào của người H’Mông tại Lào Cai">
+                    <button class="favorite-button" onclick="toggleFavorite('vanhoa')" aria-label="Đánh dấu yêu thích Văn Hóa">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa đặc sắc của Lào Cai">Văn Hóa</h3>
+                        <p>Lào Cai là vùng đất đa sắc màu văn hóa với các lễ hội như lễ hội Gầu Tào của người H’Mông, lễ hội xuống đồng của người Tày, và các chợ phiên nổi tiếng ở Sa Pa, Bắc Hà. Trang phục, nhạc cụ, và điệu múa dân tộc là nét đặc trưng.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="dialy">
+                    <img src="https://vufo.org.vn/data/data/quynhhoa/2023/03/laocai2.jpg" alt="Địa lý Lào Cai" data-caption="Đỉnh Fansipan và cảnh núi non tại Lào Cai">
+                    <button class="favorite-button" onclick="toggleFavorite('dialy')" aria-label="Đánh dấu yêu thích Địa Lý">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Vị trí và địa hình Lào Cai">Địa Lý</h3>
+                        <p>Lào Cai nằm ở Tây Bắc Việt Nam, giáp Trung Quốc, với diện tích khoảng 6.384 km². Tỉnh có địa hình núi cao, thung lũng, và sông suối, nổi bật với đỉnh Fansipan, thị trấn Sa Pa, và thác Bạc. Đây là cửa ngõ giao thương quan trọng của vùng.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="amthuc">
+                    <img src="https://scontent.iocvnpt.com/resources/portal/Images/LCI/adminsvhttdl/%E1%BA%A8mth%E1%BB%B1cL%C3%A0oCai%E1%BA%A5nt%C6%B0%E1%BB%A3ngtrongl%C3%B2ngdukh%C3%A1ch/6amthucnguoitaybanhosapa_637103748733932362.jpg" alt="Ẩm thực Lào Cai" data-caption="Thắng cố, món ăn đặc trưng của Lào Cai">
+                    <button class="favorite-button" onclick="toggleFavorite('amthuc')" aria-label="Đánh dấu yêu thích Ẩm Thực">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Ẩm thực đặc trưng của Lào Cai">Ẩm Thực</h3>
+                        <p>Ẩm thực Lào Cai đậm chất Tây Bắc với các món như thắng cố, thịt trâu gác bếp, lợn cắp nách, và măng rừng. Các món ăn dân tộc như xôi ngũ sắc, bánh chưng đen, cùng rượu ngô Bắc Hà mang đến trải nghiệm ẩm thực độc đáo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="explore-section">
+            <button class="explore-button" onclick="window.location.href='laocai.html'" aria-label="Chuyển đến trang Điểm Đến Lào Cai" data-tooltip="Đi đến trang Điểm Đến Lào Cai">
+                <span>✈️</span> Khám Phá Lào Cai
+            </button>
+            <button class="feedback-button" onclick="openFeedbackModal()" aria-label="Gửi phản hồi về trang" data-tooltip="Chia sẻ ý kiến của bạn">
+                <span>📝</span> Gửi Phản Hồi
+            </button>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <button class="weather-button" onclick="toggleWeather()">Xem Thời Tiết</button>
+    <div class="weather-overlay" id="weatherOverlay">
+        <p><strong>Thời tiết Lào Cai (17/05/2025):</strong></p>
+        <p>Nhiệt độ: 22°C</p>
+        <p>Tình trạng: Trời mát, mây rải rác</p>
+        <p>Độ ẩm: 70%</p>
+        <button onclick="toggleWeather()">Đóng</button>
+    </div>
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img id="modalImage" src="" alt="Hình ảnh phóng to">
+            <p class="modal-caption" id="modalCaption"></p>
+        </div>
+    </div>
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content feedback-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Gửi Phản Hồi</h3>
+            <input type="text" id="feedbackName" placeholder="Họ và tên" required>
+            <textarea id="feedbackComment" placeholder="Ý kiến của bạn" rows="5" required></textarea>
+            <button onclick="submitFeedback()">Gửi</button>
+            <p id="feedbackMessage" style="display: none;"></p>
+        </div>
+    </div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                    <p class="logo-caption">ViVuWithTeam1</p>
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+     <script src="laocai.js"></script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá các điểm đến nổi bật tại Bình Dương với danh lam thắng cảnh và di tích lịch sử, thanh menu cố định không khoảng trắng.">
+    <link rel="icon" type="image/png" href="https://x.ai/favicon.ico">
+    <title>Điểm đến Bình Dương</title>
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Feedback Modal -->
+    <div class="feedback-modal">
+        <div class="feedback-modal-content">
+            <span class="feedback-modal-close">×</span>
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Gửi Phản Hồi</h2>
+            <form class="feedback-form">
+                <div>
+                    <label for="feedback-name"><span class="text-gray-600">👤</span> Tên</label>
+                    <input type="text" id="feedback-name" placeholder="Nhập tên của bạn" required>
+                </div>
+                <div>
+                    <label for="feedback-email"><span class="text-gray-600">📧</span> Email</label>
+                    <input type="email" id="feedback-email" placeholder="Nhập email của bạn" required>
+                    <div id="email-error" class="error-message">Vui lòng nhập email hợp lệ (ví dụ: example@domain.com)</div>
+                </div>
+                <div>
+                    <label for="feedback-message"><span class="text-gray-600">✍️</span> Nội dung phản hồi</label>
+                    <textarea id="feedback-message" rows="4" placeholder="Nhập nội dung phản hồi" required></textarea>
+                </div>
+                <div class="file-input-wrapper">
+                    <label for="feedback-image"><span class="text-gray-600">📷</span> Tải ảnh lên (tùy chọn)</label>
+                    <input type="file" id="feedback-image" accept="image/*">
+                    <img id="image-preview" class="image-preview" alt="Preview ảnh phản hồi">
+                </div>
+                <button type="submit" id="submit-feedback">Gửi</button>
+            </form>
+        </div>
+    </div>
+    <!-- Toast Notification -->
+    <div class="toast" id="success-toast">Gửi thành công!</div>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <button class="hamburger" aria-label="Toggle menu">☰</button>
+        <nav class="dieuhuong">
+            <div id="div_dieuhuong">
+                <a href="index.html" class="homepage">Trang chủ</a>
+                <ul class="menu">
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Bắc</a>
+                        <ul class="submenu">
+                            <li><a href="hanoi1.html">Hà Nội</a></li>
+                            <li><a href="quangninh1.html">Quảng Ninh</a></li>
+                            <li><a href="hagiang1.html">Hà Giang</a></li>
+                            <li><a href="haiphong1.html">Hải Phòng</a></li>
+                            <li><a href="laocai1.html">Lào Cai</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Trung</a>
+                        <ul class="submenu">
+                            <li><a href="danang1.html">Đà Nẵng</a></li>
+                            <li><a href="hue1.html">Thừa Thiên Huế</a></li>
+                            <li><a href="nghean1.html">Nghệ An</a></li>
+                            <li><a href="thanhhoa1.html">Thanh Hóa</a></li>
+                            <li><a href="quangnam1.html">Quảng Nam</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Nam</a>
+                        <ul class="submenu">
+                            <li><a href="hochiminh1.html">TP. Hồ Chí Minh</a></li>
+                            <li><a href="cantho1.html">Cần Thơ</a></li>
+                            <li><a href="binhduong1.html">Bình Dương</a></li>
+                            <li><a href="baria1.html">Bà Rịa Vũng Tàu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="ngonngu">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm điểm đến..." aria-label="Search destinations">
+                <span class="search-icon">🔍</span>
+                <span class="clear-search" title="Xóa tìm kiếm">✖</span>
+            </div>
+            <div id="dangky" onclick="window.location.href='./dangky.html'">Đăng ký</div>
+            <div id="dangnhap" onclick="window.location.href='./dangnhap.html'">Đăng nhập</div>
+            <div id="dangxuat" onclick="m2()">Đăng xuất</div>
+        </div>
+    </header>
+    <div class="filter-section">
+        <span class="filter-tag" data-tag="all">Tất cả</span>
+        <span class="filter-tag" data-tag="Khám Phá">Khám Phá</span>
+        <span class="filter-tag" data-tag="Sinh Thái">Sinh Thái</span>
+          <span class="filter-tag" data-tag="Giải Trí">Giải Trí</span>
+          <span class="filter-tag" data-tag="Thắng Cảnh">Thắng Cảnh</span>
+        <span class="filter-tag" data-tag="Lịch Sử">Lịch Sử</span>
+        <span class="filter-tag" data-tag="Văn Hóa">Văn Hóa</span>
+    </div>
+    <div class="container">
+        <div class="no-results">Không tìm thấy kết quả phù hợp.</div>
+        <div class="beach-section">
+            <h2>Danh lam thắng cảnh</h2>
+            <div class="destination-grid">
+                <div class="destination-card" data-tags="Khám Phá Giải Trí Thắng Cảnh">
+                    <div class="card-image">
+                        <a href="dainam.html"><img src="https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2017/11/dai-nam-8.jpg" alt="Toàn cảnh Khu Du Lịch Đại Nam với đền thờ và biển nhân tạo"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="dainam.html">Khu Du Lịch Đại Nam</a>
+                        <p class="card-description">Nằm tại TP. Thủ Dầu Một, <span data-tooltip="Khu du lịch lớn nhất Việt Nam tại Bình Dương">Khu Du Lịch Đại Nam</span> thu hút du khách với <span data-tooltip="Ngôi đền tâm linh thờ Hùng Vương">đền thờ Đại Nam</span>, <span data-tooltip="Vườn thú mở với hươu, tê giác">vườn thú Đại Nam</span>, <span data-tooltip="Biển nhân tạo với sóng lớn">biển nhân tạo</span>, và <span data-tooltip="Trường đua ngựa, mô tô, jet ski">trường đua Đại Nam</span>, lý tưởng cho tham quan, vui chơi, và học hỏi văn hóa...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Khám Phá</span>
+                            <span class="travel-tag">Giải Trí</span>
+                             <span class="travel-tag">Thắng Cảnh</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Sinh Thái Thắng Cảnh">
+                    <div class="card-image">
+                        <a href="thuychau.html"><img src="https://ik.imagekit.io/tvlk/blog/2022/03/khu-du-lich-thuy-chau-4.jpg?tr=q-70,c-at_max,w-500,h-300,dpr-2" alt="Thác nước nhân tạo tại Khu du lịch sinh thái Thủy Châu"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="thuychau.html">Khu du lịch sinh thái Thủy Châu</a>
+                        <p class="card-description">Chỉ cách trung tâm TP.HCM 20 km, Khu du lịch sinh thái Thủy Châu tại Bình Dương là điểm đến lý tưởng cho những ai tìm kiếm không gian xanh mát, thác nước nhân tạo hùng vĩ, hồ bơi phong cách châu Âu, và các hoạt động như dã ngoại, bơi lội, câu cá sấu. Với diện tích 18 ha, Thủy Châu mang đến trải nghiệm thư giãn, hòa mình vào thiên nhiên, phù hợp cho gia đình, bạn bè và những người muốn tạm rời xa nhịp sống đô thị hối hả....</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Sinh Thái</span>
+                            <span class="travel-tag">Thắng Cảnh</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Giải Trí Thắng Cảnh">
+                    <div class="card-image">
+                        <a href="thudaumot.html">        <img src="https://giadinh.mediacdn.vn/296230595582509056/2024/9/3/hoa-dau-2-1145-1725382780521-17253827806171450475700.jpg" alt="Không khí nhộn nhịp tại Chợ đêm Thủ Dầu Một">
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="thudaumot.html">Chợ đêm Thủ Dầu Một</a>
+                        <p class="card-description">Nằm ngay trung tâm thành phố Thủ Dầu Một, Chợ đêm Thủ Dầu Một là điểm đến sôi động thu hút du khách với hàng trăm gian hàng ẩm thực đường phố, quần áo, đồ thủ công, và các màn biểu diễn văn nghệ đặc sắc. Chỉ cách TP.HCM 30 km, chợ đêm mang đến trải nghiệm văn hóa địa phương, nơi du khách hòa mình vào không khí nhộn nhịp, thưởng thức đặc sản miền Nam, và khám phá đời sống cộng đồng Bình Dương...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Giải Trí</span>
+                            <span class="travel-tag">Thắng Cảnh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <h2>Di tích lịch sử</h2>
+            <div class="destination-grid">
+                <div class="destination-card" data-tags="Lịch Sử Văn Hóa">
+                    <div class="card-image">
+                        <a href="chuabathienhau.html"><img src="https://cdn.xanhsm.com/2024/11/1fc13da6-chua-ba-thien-hau-2.jpg" alt="Kiến trúc cổ kính của Chùa Bà Thiên Hậu, Thủ Dầu Một"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="chuabathienhau.html">Chùa Bà Thiên Hậu</a>
+                        <p class="card-description">Tọa lạc tại số 4 đường Nguyễn Du, trung tâm thành phố Thủ Dầu Một, Chùa Bà Thiên Hậu (Thiên Hậu Cung) là ngôi chùa cổ kính của cộng đồng người Hoa, nổi tiếng với kiến trúc Trung Hoa độc đáo, không gian linh thiêng, và lễ hội Rằm tháng Giêng sôi động. Chỉ cách TP.HCM 30 km, chùa thu hút hàng nghìn du khách và người hành hương mỗi năm, là biểu tượng văn hóa và tín ngưỡng của Bình Dương, nơi thờ Thiên Hậu Thánh Mẫu – vị thần bảo hộ ngư dân và người đi biển...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Văn Hóa</span>
+                            <span class="travel-tag">Lịch Sử</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Lịch Sử Văn Hóa">
+                    <div class="card-image">
+                        <a href="nhatuphuloi.html"><img src="https://mia.vn/media/uploads/blog-du-lich/nha-tu-phu-loi-binh-duong-mot-trong-nhung-minh-chung-toi-ac-cua-my-1656295452.jpg" alt="Khu nhà giam tái hiện tại Di tích Nhà tù Phú Lợi"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="nhatuphuloi.html">Di tích Nhà tù Phú Lợi</a>
+                        <p class="card-description">Tọa lạc tại đường 1 Tháng Mười Hai, phường Phú Lợi, thành phố Thủ Dầu Một, Di tích Nhà tù Phú Lợi là minh chứng sống động cho tội ác của chế độ Mỹ-Diệm và tinh thần bất khuất của các chiến sĩ cách mạng. Được xếp hạng Di tích Lịch sử Quốc gia năm 1980, nơi đây từng giam cầm hàng ngàn tù nhân yêu nước từ 1957–1964, nổi tiếng với sự kiện “Phú Lợi căm thù” năm 1958. Chỉ cách TP.HCM 30 km, di tích thu hút hàng chục nghìn lượt khách mỗi năm, là điểm đến giáo dục truyền thống cách mạng không thể bỏ qua...</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Lịch Sử</span>
+                            <span class="travel-tag">Văn Hóa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="destination-card" data-tags="Sinh Thái Lịch Sử Văn Hóa">
+                    <div class="card-image">
+                        <a href="chauthoi.html"><img src="https://media2.gody.vn/public/mytravelmap/images/2019/11/11/mynameisvietkm468344/ab2b81a543a88d2992a755913049bdae.jpg" alt="Toàn cảnh Khu Di Tích Núi và Chùa Châu Thới với chùa cổ và núi xanh"></a>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"></h3>
+                        <a href="chauthoi.html">Khu Di Tích Núi và Chùa Châu Thới</a>
+                        <p class="card-description">Nằm tại huyện Dĩ An, <span data-tooltip="Khu di tích tâm linh và thiên nhiên tại Bình Dương">Khu Di Tích Núi và Chùa Châu Thới</span> mê hoặc du khách với <span data-tooltip="Chùa cổ nhất Bình Dương, xây năm 1612">Chùa Châu Thới</span>, <span data-tooltip="Ngọn núi thấp với cảnh quan tuyệt đẹp">Núi Châu Thới</span>, không gian tâm linh, thiên nhiên xanh mát, và lịch sử phong phú, lý tưởng cho cầu an, leo núi, ngắm cảnh, và khám phá văn hóa....</p>
+                        <div class="travel-tags">
+                            <span class="travel-tag">Sinh Thái</span>
+                            <span class="travel-tag">Lịch Sử</span>
+                            <span class="travel-tag">Văn Hóa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                    <p class="logo-caption">ViVuWithTeam1</p>
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+    <div class="scroll-to-top">↑</div>
+    <div class="feedback-btn">✉</div>
+     <script src="main.js"></script>
+</body>
+</html>

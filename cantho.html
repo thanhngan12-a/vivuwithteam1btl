@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm Đến Cần Thơ</title>
+    <link rel="stylesheet" href="style.css">    
+</head>
+<body>
+    
+    <div class="feedback-modal">
+        <div class="feedback-modal-content">
+            <span class="feedback-modal-close">×</span>
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Gửi Phản Hồi</h2>
+            <form class="feedback-form">
+                <div>
+                    <label for="feedback-name"><span class="text-gray-600">👤</span> Tên</label>
+                    <input type="text" id="feedback-name" placeholder="Nhập tên của bạn" required>
+                </div>
+                <div>
+                    <label for="feedback-email"><span class="text-gray-600">📧</span> Email</label>
+                    <input type="email" id="feedback-email" placeholder="Nhập email của bạn" required>
+                    <div id="email-error" class="error-message">Vui lòng nhập email hợp lệ (ví dụ: example@domain.com)</div>
+                </div>
+                <div>
+                    <label for="feedback-message"><span class="text-gray-600">✍️</span> Nội dung phản hồi</label>
+                    <textarea id="feedback-message" rows="4" placeholder="Nhập nội dung phản hồi" required></textarea>
+                </div>
+                <div class="file-input-wrapper">
+                    <label for="feedback-image"><span class="text-gray-600">📷</span> Tải ảnh lên (tùy chọn)</label>
+                    <input type="file" id="feedback-image" accept="image/*">
+                    <img id="image-preview" class="image-preview" alt="Preview ảnh phản hồi">
+                </div>
+                <button type="submit" id="submit-feedback">Gửi</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="success-toast">Gửi thành công!</div>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <button class="hamburger" aria-label="Toggle menu">☰</button>
+        <nav class="dieuhuong">
+            <div id="div_dieuhuong">
+                <a href="index.html" class="homepage">Trang chủ</a>
+                <ul class="menu">
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Bắc</a>
+                        <ul class="submenu">
+                            <li><a href="hanoi1.html">Hà Nội</a></li>
+                            <li><a href="quangninh1.html">Quảng Ninh</a></li>
+                            <li><a href="hagiang1.html">Hà Giang</a></li>
+                            <li><a href="haiphong1.html">Hải Phòng</a></li>
+                            <li><a href="laocai1.html">Lào Cai</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Trung</a>
+                        <ul class="submenu">
+                            <li><a href="danang1.html">Đà Nẵng</a></li>
+                            <li><a href="hue1.html">Thừa Thiên Huế</a></li>
+                            <li><a href="nghean1.html">Nghệ An</a></li>
+                            <li><a href="thanhhoa1.html">Thanh Hóa</a></li>
+                            <li><a href="quangnam1.html">Quảng Nam</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false">Miền Nam</a>
+                        <ul class="submenu">
+                            <li><a href="hochiminh1.html">TP. Hồ Chí Minh</a></li>
+                            <li><a href="cantho1.html">Cần Thơ</a></li>
+                            <li><a href="binhduong1.html">Bình Dương</a></li>
+                            <li><a href="baria1.html">Bà Rịa Vũng Tàu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="ngonngu">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm điểm đến..." aria-label="Search destinations">
+                <span class="search-icon">🔍</span>
+                <span class="clear-search" title="Xóa tìm kiếm">✖</span>
+            </div>
+            <div id="dangky" onclick="window.location.href='./dangky.html'">Đăng ký</div>
+            <div id="dangnhap" onclick="window.location.href='./dangnhap.html'">Đăng nhập</div>
+            <div id="dangxuat" onclick="m2()">Đăng xuất</div>
+        </div>
+    </header>
+    <div class="filter-section">
+        <span class="filter-tag" data-tag="all">Tất cả</span>
+        <span class="filter-tag" data-tag="Giải Trí">Giải Trí</span>
+        <span class="filter-tag" data-tag="Khám Phá">Khám Phá</span>
+        <span class="filter-tag" data-tag="Sinh Thái">Sinh Thái</span>
+        <span class="filter-tag" data-tag="Văn Hóa">Văn Hóa</span>
+        <span class="filter-tag" data-tag="Lịch Sử">Lịch Sử</span>
+         <span class="filter-tag" data-tag="Kiến Trúc">Kiến Trúc</span>
+    </div>
+    <div class="container">
+        <div class="no-results">Không tìm thấy kết quả phù hợp.</div>
+        <div class="beach-section">
+        <h2>Danh lam thắng cảnh</h2>
+        <div class="destination-grid">
+            <div class="destination-card" data-tags="Văn Hóa Giải Trí Thắng Cảnh">
+                <div class="card-image">
+                     <a href="chocairang.html"><img src="https://nguoiduatin.mediacdn.vn/84137818385850368/2024/9/25/base64-1727265825888848625527.jpeg" alt="Chợ Nổi Cái Răng tấp nập ghe thuyền buôn bán"></a>
+      </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="chocairang.html">Chợ Nổi Cái Răng</a>
+                    <p class="card-description">Chợ Nổi Cái Răng, biểu tượng văn hóa độc đáo của Cần Thơ, mang đến trải nghiệm sống động về cuộc sống sông nước miền Tây Nam Bộ...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Văn Hóa</span>
+                        <span class="travel-tag">Giải Trí</span>
+                        <span class="travel-tag">Thắng Cảnh</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Văn Hóa Thắng Cảnh">
+                <div class="card-image">
+                    <a href="bienninhkieu.html"><img src="https://thamhiemmekong.com/wp-content/uploads/2019/07/ben-ninh-kieu-can-tho.jpg" alt="Bến Ninh Kiều rực rỡ bên sông Hậu" ></a>
+      </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="bienninhkieu.html">Bến Ninh Kiều</a>
+                    <p class="card-description">Bến Ninh Kiều, biểu tượng thơ mộng của TP. Cần Thơ, là nơi giao thoa giữa văn hóa sông nước và nhịp sống hiện đại của miền Tây...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Văn Hóa</span>
+                        <span class="travel-tag">Thắng Cảnh</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Sinh Thái Giải Trí Thắng Cảnh">
+                <div class="card-image">
+                     <a href="vuoncobanglang.html"><img src="https://luhanhvietnam.com.vn/du-lich/vnt_upload/news/01_2020/vuon-co-bang-lang-2.jpg" alt="Vườn cò Bằng Lăng với đàn cò trắng bay rợp trời" ></a>
+      </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="vuoncobanglang.html">Vườn cò Bằng Lăng</a>
+                    <p class="card-description">Vườn cò Bằng Lăng, nơi hội tụ hàng ngàn cánh chim, là điểm du lịch sinh thái độc đáo mang đến cảm giác yên bình giữa lòng miền Tây sông nước...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Sinh Thái</span>
+                        <span class="travel-tag">Giải Trí</span>
+                        <span class="travel-tag">Thắng Cảnh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>Di tích lịch sử</h2>
+        <div class="destination-grid">
+            <div class="destination-card" data-tags="Lịch Sử Khám Phá Văn Hóa">
+                <div class="card-image">
+                    <a href="hutieu.html"><img src="https://vemekong.com/wp-content/uploads/2020/12/can-tho-rice-noodle-factory-mekong-vietnam-1a.jpg" alt="Lò hủ tiếu Cần Thơ với không khí lao động nhộn nhịp" ></a>
+      </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="hutieu.html">Lò hủ tiếu Cần Thơ</a>
+                    <p class="card-description">Lò hủ tiếu Cần Thơ, nơi lưu giữ bí quyết làm <span data-tooltip="Sợi hủ tiếu">sợi hủ tiếu dẻo dai</span>, là điểm đến lý tưởng để khám phá văn hóa và ẩm thực miền Tây Nam Bộ...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Văn Hóa</span>
+                        <span class="travel-tag">Khám Phá</span>
+                        <span class="travel-tag">Lịch Sử</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Lịch Sử Văn Hóa">
+                <div class="card-image">
+                    <a href="dinhbinhthuy.html"><img src="https://ticotravel.com.vn/wp-content/uploads/2023/05/dinh-binh-thuy-5.jpg" alt="Đình Bình Thủy với kiến trúc Nam Bộ cổ kính" ></a>
+      </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="dinhbinhthuy.html">Đình Bình Thủy</a>
+                    <p class="card-description">Đình Bình Thủy, ngôi đình cổ hơn 180 năm tuổi, là biểu tượng tâm linh và văn hóa của người dân Cần Thơ, thu hút du khách bởi <span data-tooltip="Kiến trúc Nam Bộ">kiến trúc độc đáo</span> và giá trị lịch sử...</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Lịch Sử</span>
+                        <span class="travel-tag">Văn Hóa</span>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card" data-tags="Kiến Trúc Lịch Sử Văn Hóa">
+                <div class="card-image">
+                    <a href="chuapo.html"><img src="https://chonthieng.com/data/uploads/2022/05/1.-Chua-Pothisomron-Nguon_FB-Chua-Pothi-Somron.jpg" alt="Chùa Pôthi Somrôn với kiến trúc Khmer cổ kính"></a>
+      </div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <a href="chuapo.html">Chùa Pôthi Somrôn</a>
+                    <p class="card-description">Chùa Pôthi Somrôn, ngôi chùa Khmer cổ nhất Cần Thơ, là di sản văn hóa tâm linh với <span data-tooltip="Kiến trúc truyền thống">kiến trúc độc đáo</span> và lịch sử gần 300 năm.</p>
+                    <div class="travel-tags">
+                        <span class="travel-tag">Kiến Trúc</span>
+                        <span class="travel-tag">Lịch Sử</span>
+                        <span class="travel-tag">Văn Hóa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+    <div id="khoangxanh"></div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="VivuWithTeam1 Footer Logo">
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+    <div class="scroll-to-top">↑</div>
+    <div class="feedback-btn">✉</div>
+    <script src="main.js"></script>
+</body>
+</html>

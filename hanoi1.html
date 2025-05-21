@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá Hà Nội qua bản đồ tương tác, thông tin cơ bản về con người, khí hậu, lịch sử, văn hóa, địa lý, ẩm thực, với các tính năng tương tác như modal hình ảnh, cuộn mượt, thời tiết, đánh dấu yêu thích, chuyển đổi bản đồ, và biểu mẫu phản hồi với thông báo thành công.">
+    <link rel="icon" type="image/png" href="https://x.ai/favicon.ico">
+    <title>Hà Nội – Bản Đồ và Thông Tin</title>
+   <link rel="stylesheet" href="style2.css">  
+</head>
+<body>
+    <button class="close-button" onclick="window.location.href='hanoi.html'" aria-label="Đóng trang và chuyển đến Điểm Đến Hà Nội" data-tooltip="Đóng trang và trở về Điểm Đến Hà Nội">
+        <span>✕</span> Đóng
+    </button>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('map-section')">Xem Bản Đồ</button>
+            <button class="nav-button" onclick="scrollToSection('info-section')">Thông Tin</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="map-section" id="map-section">
+            <h2 data-tooltip="Bản đồ định vị Hà Nội">Bản Đồ Hà Nội</h2>
+            <div class="map-container" aria-label="Bản đồ tương tác của Hà Nội">
+                <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.863985879628!2d105.85123531504162!3d21.028511985998207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab145bf0c2e3%3A0x6c1f43b0b5b1b085!2sHo%C3%A0n%20Ki%E1%BA%BFm%20Lake!5e0!3m2!1sen!2s!4v1698765432109!5m2!1sen!2s" ></iframe>
+            </div>
+            <p class="map-caption" id="mapCaption">Bản đồ định vị trung tâm Hà Nội tại Hồ Hoàn Kiếm, trái tim của thủ đô.</p>
+            <div class="map-controls">
+                <button class="map-control-button" onclick="changeMap('hoankiem')">Hồ Hoàn Kiếm</button>
+                <button class="map-control-button" onclick="changeMap('vanmieu')">Văn Miếu</button>
+                <button class="map-control-button" onclick="changeMap('hoangthanh')">Hoàng Thành</button>
+            </div>
+        </div>
+        <div class="info-section" id="info-section">
+            <h2>Thông Tin Cơ Bản Về Hà Nội</h2>
+            <div class="info-grid">
+                <div class="info-card" data-id="connguoi">
+                    <img src="https://hdll.vn//FileUpload/Images/phongtuctapquannguoihanoi.jpg" alt="Con người Hà Nội" data-caption="Cộng đồng thân thiện và thanh lịch của Hà Nội">
+                    <button class="favorite-button" onclick="toggleFavorite('connguoi')" aria-label="Đánh dấu yêu thích Con Người">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa và con người Hà Nội">Con Người</h3>
+                        <p>Hà Nội, thủ đô nghìn năm văn hiến, là nơi hội tụ những con người thân thiện và hiếu khách. Người Hà Nội nổi tiếng với sự thanh lịch, tinh tế, và niềm tự hào về di sản văn hóa. Từ phố cổ sầm uất đến các làng nghề truyền thống, cư dân Hà Nội mang đến một lối sống giao thoa giữa truyền thống và hiện đại.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="khihau">
+                    <img src="https://kenhthoitiet.edu.vn/wp-content/uploads/2023/02/4-mua-xuan-ha-thu-dong.jpg" alt="Khí hậu Hà Nội" data-caption="Bốn mùa rõ rệt của Hà Nội">
+                    <button class="favorite-button" onclick="toggleFavorite('khihau')" aria-label="Đánh dấu yêu thích Khí Hậu">♡</button>
+                    <div class="info-card-content">
+            
+<h3 ><data-tooltip="Khí hậu đặc trưng của Hà Nội">Khí Hậu</h3>
+                        <p>Hà Nội có khí hậu nhiệt đới gió mùa với bốn mùa rõ rệt: xuân ấm áp, hạ nóng ẩm, thu mát mẻ, và đông lạnh khô. Nhiệt độ dao động từ 15°C vào mùa đông đến 35°C vào mùa hè. Mùa thu (tháng 9-11) là thời điểm lý tưởng để ghé thăm với tiết trời dễ chịu.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="lichsu">
+                    <img src="https://dulichlive.com/ha-noi/wp-content/uploads/sites/8/2020/06/Van-mieu-quoc-tu-giam-1597x600.jpg" alt="Lịch sử Hà Nội" data-caption="Văn Miếu – Quốc Tử Giám, biểu tượng lịch sử Hà Nội">
+                    <button class="favorite-button" onclick="toggleFavorite('lichsu')" aria-label="Đánh dấu yêu thích Lịch Sử">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Lịch sử nghìn năm của Hà Nội">Lịch Sử</h3>
+                        <p>Hà Nội là thủ đô của Việt Nam từ năm 1010, khi vua Lý Thái Tổ dời đô từ Hoa Lư về Đại La, đặt tên là Thăng Long. Với hơn 1000 năm lịch sử, thành phố là chứng nhân cho các triều đại phong kiến, kháng chiến, và sự phát triển hiện đại, lưu giữ nhiều di tích như Hoàng Thành Thăng Long.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="vanhoa">
+                    <img src="https://i2.ex-cdn.com/crystalbay.com/files/content/2025/02/05/du-lich-ha-noi-don-luong-khach-ky-luc-dip-tet-nguyen-dan-1506.jpg" alt="Văn hóa Hà Nội" data-caption="Lễ hội truyền thống tại Hà Nội">
+                    <button class="favorite-button" onclick="toggleFavorite('vanhoa')" aria-label="Đánh dấu yêu thích Văn Hóa">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa đặc sắc của Hà Nội">Văn Hóa</h3>
+                        <p>Hà Nội là trung tâm văn hóa của Việt Nam, nổi bật với các lễ hội truyền thống như Tết Nguyên Đán, ẩm thực độc đáo như phở và bún chả, và nghệ thuật dân gian như ca trù. Các di tích như Văn Miếu – Quốc Tử Giám và 36 phố phường phản ánh bề dày văn hóa của thành phố.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="dialy">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Hanoi_Skyline_-_NKS.jpg/500px-Hanoi_Skyline_-_NKS.jpg" alt="Địa lý Hà Nội" data-caption="Toàn cảnh đô thị Hà Nội bên sông Hồng">
+                    <button class="favorite-button" onclick="toggleFavorite('dialy')" aria-label="Đánh dấu yêu thích Địa Lý">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Vị trí và địa hình Hà Nội">Địa Lý</h3>
+                        <p>Hà Nội nằm ở miền Bắc Việt Nam, bên bờ sông Hồng, với diện tích khoảng 3.358 km². Thành phố bao gồm khu vực đô thị sầm uất và vùng ngoại ô nông thôn. Vị trí chiến lược ở đồng bằng sông Hồng khiến Hà Nội trở thành trung tâm chính trị, kinh tế, và văn hóa của cả nước.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="amthuc">
+                    <img src="https://www.hanoicreativecity.com/wp-content/uploads/2016/11/m%C3%A2m-c%C6%A1m.jpg" alt="Ẩm thực Hà Nội" data-caption="Ẩm thực tinh tế của Hà Nội">
+                    <button class="favorite-button" onclick="toggleFavorite('amthuc')" aria-label="Đánh dấu yêu thích Ẩm Thực">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Ẩm thực đặc trưng của Hà Nội">Ẩm Thực</h3>
+                        <p>Hà Nội là thiên đường ẩm thực với các món ăn đậm đà bản sắc như phở bò, bún chả, bánh cuốn, chả cá Lã Vọng, và cà phê trứng. Ẩm thực Hà Nội kết hợp hương vị tinh tế, nguyên liệu tươi ngon, và cách chế biến cầu kỳ, phản ánh văn hóa nghìn năm của thủ đô.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="explore-section">
+            <button class="explore-button" onclick="window.location.href='hanoi.html'" aria-label="Chuyển đến trang Điểm Đến Hà Nội" data-tooltip="Đi đến trang Điểm Đến Hà Nội">
+                <span>✈️</span> Khám Phá Hà Nội
+            </button>
+            <button class="feedback-button" onclick="openFeedbackModal()" aria-label="Gửi phản hồi về trang" data-tooltip="Chia sẻ ý kiến của bạn">
+                <span>📝</span> Gửi Phản Hồi
+            </button>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <button class="weather-button" onclick="toggleWeather()">Xem Thời Tiết</button>
+    <div class="weather-overlay" id="weatherOverlay">
+        <p><strong>Thời tiết Hà Nội (21/05/2025):</strong></p>
+        <p>Nhiệt độ: 31°C</p>
+        <p>Tình trạng: Nhiều mây</p>
+        <p>Độ ẩm: 88%</p>
+        <button onclick="toggleWeather()">Đóng</button>
+    </div>
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img id="modalImage" src="" alt="Hình ảnh phóng to">
+            <p class="modal-caption" id="modalCaption"></p>
+        </div>
+    </div>
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content feedback-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Gửi Phản Hồi</h3>
+            <input type="text" id="feedbackName" placeholder="Họ và tên" required>
+            <textarea id="feedbackComment" placeholder="Ý kiến của bạn" rows="5" required></textarea>
+            <button onclick="submitFeedback()">Gửi</button>
+            <p id="feedbackMessage" style="display: none;"></p>
+        </div>
+    </div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                    <p class="logo-caption">ViVuWithTeam1</p>
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+     <script src="hanoi.js"></script>
+</body>
+</html>

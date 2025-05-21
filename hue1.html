@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá Thừa Thiên Huế qua bản đồ tương tác, thông tin cơ bản về con người, khí hậu, lịch sử, văn hóa, địa lý, ẩm thực, với các tính năng tương tác như modal hình ảnh, cuộn mượt, thời tiết, đánh dấu yêu thích, chuyển đổi bản đồ, và biểu mẫu phản hồi với thông báo thành công.">
+    <link rel="icon" type="image/png" href="https://x.ai/favicon.ico">
+    <title>Thừa Thiên Huế – Bản Đồ và Thông Tin</title>
+     <link rel="stylesheet" href="style2.css"> 
+</head>
+<body>
+    <button class="close-button" onclick="window.location.href='hue.html'" aria-label="Đóng trang và chuyển đến Điểm Đến Thừa Thiên Huế" data-tooltip="Đóng trang và trở về Điểm Đến Thừa Thiên Huế">
+        <span>✕</span> Đóng
+    </button>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('map-section')">Xem Bản Đồ</button>
+            <button class="nav-button" onclick="scrollToSection('info-section')">Thông Tin</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="map-section" id="map-section">
+            <h2 data-tooltip="Bản đồ định vị Thừa Thiên Huế">Bản Đồ Thừa Thiên Huế</h2>
+            <div class="map-container" aria-label="Bản đồ tương tác của Thừa Thiên Huế">
+                <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3825.733234777273!2d107.57814631502276!3d16.46769618863192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141a14886d00b0b%3A0x4f2b8b8b8b8b8b8b!2sHue%2C%20Thua%20Thien%20Hue%2C%20Vietnam!5e0!3m2!1sen!2s!4v1698765432109!5m2!1sen!2s"></iframe>
+            </div>
+            <p class="map-caption" id="mapCaption">Bản đồ định vị trung tâm thành phố Huế, cố đô diễm lệ bên dòng sông Hương.</p>
+            <div class="map-controls">
+                <button class="map-control-button" onclick="changeMap('hue')">TP. Huế</button>
+                <button class="map-control-button" onclick="changeMap('langco')">Lăng Cô</button>
+                <button class="map-control-button" onclick="changeMap('phatamgiang')">Phá Tam Giang</button>
+            </div>
+        </div>
+        <div class="info-section" id="info-section">
+            <h2>Thông Tin Cơ Bản Về Thừa Thiên Huế</h2>
+            <div class="info-grid">
+                <div class="info-card" data-id="connguoi">
+                    <img src="https://image.nhandan.vn/w800/Files/Images/2022/04/02/1_1-1648837368704.jpg.webp" alt="Con người Thừa Thiên Huế" data-caption="Người dân Huế dịu dàng và thanh lịch">
+                    <button class="favorite-button" onclick="toggleFavorite('connguoi')" aria-label="Đánh dấu yêu thích Con Người">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa và con người Thừa Thiên Huế">Con Người</h3>
+                        <p>Người dân Huế nổi tiếng với sự dịu dàng, thanh lịch và phong cách sống chậm rãi, mang đậm dấu ấn cố đô. Với tâm hồn nghệ sĩ, họ gìn giữ các giá trị truyền thống, từ nhã nhạc cung đình đến lối giao tiếp tinh tế, tạo nên một cộng đồng giàu bản sắc.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="khihau">
+                    <img src="https://kenhthoitiet.edu.vn/wp-content/uploads/2023/02/dac-diem-khi-hau-thua-thien-hue-3.jpg" alt="Khí hậu Thừa Thiên Huế" data-caption="Khí hậu nhiệt đới gió mùa tại Thừa Thiên Huế">
+                    <button class="favorite-button" onclick="toggleFavorite('khihau')" aria-label="Đánh dấu yêu thích Khí Hậu">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Khí hậu đặc trưng của Thừa Thiên Huế">Khí Hậu</h3>
+                        <p>Thừa Thiên Huế có khí hậu nhiệt đới gió mùa, với mùa khô (tháng 1-8) và mùa mưa (tháng 9-12). Nhiệt độ trung bình từ 19°C vào mùa đông đến 35°C vào mùa hè. Mùa xuân và đầu hè (tháng 3-5) là thời điểm lý tưởng để khám phá Huế.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="lichsu">
+                    <img src="https://danangbest.com/upload_content/kinh-thanh-hue-co-gi-dac-biet-1.webp" alt="Lịch sử Thừa Thiên Huế" data-caption="Kinh thành Huế, di sản văn hóa thế giới">
+                    <button class="favorite-button" onclick="toggleFavorite('lichsu')" aria-label="Đánh dấu yêu thích Lịch Sử">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Lịch sử lâu đời của Thừa Thiên Huế">Lịch Sử</h3>
+                        <p>Thừa Thiên Huế là cố đô của Việt Nam từ năm 1802 đến 1945 dưới triều Nguyễn. Thành phố Huế lưu giữ quần thể di tích cố đô, được UNESCO công nhận là Di sản Văn hóa Thế giới năm 1993. Nơi đây từng là trung tâm chính trị, văn hóa và tôn giáo của đất nước.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="vanhoa">
+                    <img src="https://images.baodantoc.vn/uploads/2021/Th%C3%A1ng%209/Ng%C3%A0y_18/Thanh/15-2386.jpg" alt="Văn hóa Thừa Thiên Huế" data-caption="Nhã nhạc cung đình, di sản phi vật thể của Huế">
+                    <button class="favorite-button" onclick="toggleFavorite('vanhoa')" aria-label="Đánh dấu yêu thích Văn Hóa">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa đặc sắc của Thừa Thiên Huế">Văn Hóa</h3>
+                        <p>Huế là trung tâm văn hóa với nhã nhạc cung đình Nguyễn, được UNESCO công nhận là Di sản Phi vật thể. Các lễ hội như Festival Huế, lễ hội điện Hòn Chén, cùng các làng nghề truyền thống và ca Huế trên sông Hương, phản ánh nét văn hóa tinh tế của cố đô.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="dialy">
+                    <img src="https://tourdanangcity.vn/wp-content/uploads/2020/08/vi-tri-dia-ly-thanh-pho-hue.jpg" alt="Địa lý Thừa Thiên Huế" data-caption="Sông Hương thơ mộng tại Thừa Thiên Huế">
+                    <button class="favorite-button" onclick="toggleFavorite('dialy')" aria-label="Đánh dấu yêu thích Địa Lý">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Vị trí và địa hình Thừa Thiên Huế">Địa Lý</h3>
+                        <p>Thừa Thiên Huế nằm ở miền Trung Việt Nam, với diện tích khoảng 5.009 km², giáp biển Đông và dãy Trường Sơn. Thành phố Huế nằm bên dòng sông Hương, với địa hình đa dạng từ đồng bằng, đồi núi đến bãi biển Lăng Cô và phá Tam Giang, nổi tiếng thơ mộng.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="amthuc">
+                    <img src="https://baothainguyen.vn/file/e7837c027f6ecd14017ffa4e5f2a0e34/072024/am_thuc_hue_1_20240727154613.jpg" alt="Ẩm thực Thừa Thiên Huế" data-caption="Bún bò Huế, món ăn đặc trưng của cố đô">
+                    <button class="favorite-button" onclick="toggleFavorite('amthuc')" aria-label="Đánh dấu yêu thích Ẩm Thực">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Ẩm thực đặc trưng của Thừa Thiên Huế">Ẩm Thực</h3>
+                        <p>Ẩm thực Huế tinh tế và cầu kỳ, với các món như bún bò Huế, bánh bèo, bánh nậm, bánh khoái, và chè Huế. Ẩm thực cung đình và các món chay độc đáo cũng là điểm nhấn, mang đậm hương vị thanh tao của vùng đất cố đô.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="explore-section">
+            <button class="explore-button" onclick="window.location.href='hue.html'" aria-label="Chuyển đến trang Điểm Đến Thừa Thiên Huế" data-tooltip="Đi đến trang Điểm Đến Thừa Thiên Huế">
+                <span>✈️</span> Khám Phá Thừa Thiên Huế
+            </button>
+            <button class="feedback-button" onclick="openFeedbackModal()" aria-label="Gửi phản hồi về trang" data-tooltip="Chia sẻ ý kiến của bạn">
+                <span>📝</span> Gửi Phản Hồi
+            </button>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <button class="weather-button" onclick="toggleWeather()">Xem Thời Tiết</button>
+    <div class="weather-overlay" id="weatherOverlay">
+        <p><strong>Thời tiết Thừa Thiên Huế (21/05/2025):</strong></p>
+        <p>Nhiệt độ: 28°C</p>
+        <p>Tình trạng: Trời nắng, có mây nhẹ</p>
+        <p>Độ ẩm: 75%</p>
+        <button onclick="toggleWeather()">Đóng</button>
+    </div>
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img id="modalImage" src="" alt="Hình ảnh phóng to">
+            <p class="modal-caption" id="modalCaption"></p>
+        </div>
+    </div>
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content feedback-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Gửi Phản Hồi</h3>
+            <input type="text" id="feedbackName" placeholder="Họ và tên" required>
+            <textarea id="feedbackComment" placeholder="Ý kiến của bạn" rows="5" required></textarea>
+            <button onclick="submitFeedback()">Gửi</button>
+            <p id="feedbackMessage" style="display: none;"></p>
+        </div>
+    </div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                    <p class="logo-caption">ViVuWithTeam1</p>
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+   <script src="hue.js"></script>
+</body>
+</html>

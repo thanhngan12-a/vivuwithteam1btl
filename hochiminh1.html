@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khám phá Thành phố Hồ Chí Minh qua bản đồ tương tác, thông tin cơ bản về con người, khí hậu, lịch sử, văn hóa, địa lý, ẩm thực, với các tính năng tương tác như modal hình ảnh, cuộn mượt, thời tiết, đánh dấu yêu thích, chuyển đổi bản đồ, và biểu mẫu phản hồi với thông báo thành công.">
+    <link rel="icon" type="image/png" href="https://x.ai/favicon.ico">
+    <title>Thành phố Hồ Chí Minh – Bản Đồ và Thông Tin</title>
+   <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <button class="close-button" onclick="window.location.href='hochiminh.html'" aria-label="Đóng trang và chuyển đến Điểm Đến Thành phố Hồ Chí Minh" data-tooltip="Đóng trang và trở về Điểm Đến Thành phố Hồ Chí Minh">
+        <span>✕</span> Đóng
+    </button>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+            <p class="logo-caption">ViVuWithTeam1</p>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('map-section')">Xem Bản Đồ</button>
+            <button class="nav-button" onclick="scrollToSection('info-section')">Thông Tin</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="map-section" id="map-section">
+            <h2 data-tooltip="Bản đồ định vị Thành phố Hồ Chí Minh">Bản Đồ Thành phố Hồ Chí Minh</h2>
+            <div class="map-container" aria-label="Bản đồ tương tác của Thành phố Hồ Chí Minh">
+                <iframe id="mapIframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.669923422451!2d106.69808491501876!3d10.776389992319634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f38d73b0c43%3A0x4c837d360853793!2sBen%20Thanh%20Market!5e0!3m2!1sen!2s!4v1698765432109!5m2!1sen!2s" ></iframe>
+            </div>
+            <p class="map-caption" id="mapCaption">Bản đồ định vị trung tâm Quận 1 tại Chợ Bến Thành, biểu tượng sôi động của Thành phố Hồ Chí Minh.</p>
+            <div class="map-controls">
+                <button class="map-control-button" onclick="changeMap('benthanh')">Chợ Bến Thành</button>
+                <button class="map-control-button" onclick="changeMap('dinhdoclap')">Dinh Độc Lập</button>
+                <button class="map-control-button" onclick="changeMap('quan7')">Quận 7</button>
+            </div>
+        </div>
+        <div class="info-section" id="info-section">
+            <h2>Thông Tin Cơ Bản Về Thành phố Hồ Chí Minh</h2>
+            <div class="info-grid">
+                <div class="info-card" data-id="connguoi">
+                    <img src="https://www.dulichvtv.vn/wp-content/uploads/con-nguoi-sai-gon.jpg" alt="Con người Thành phố Hồ Chí Minh" data-caption="Người dân Sài Gòn cởi mở và năng động">
+                    <button class="favorite-button" onclick="toggleFavorite('connguoi')" aria-label="Đánh dấu yêu thích Con Người">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa và con người Thành phố Hồ Chí Minh">Con Người</h3>
+                        <p>Người dân Thành phố Hồ Chí Minh, hay còn gọi là Sài Gòn, nổi tiếng với sự cởi mở, năng động và phóng khoáng. Là nơi giao thoa của nhiều nền văn hóa, cư dân nơi đây mang tinh thần hiện đại, sáng tạo, và luôn sẵn sàng giúp đỡ du khách, tạo nên một không khí thân thiện và ấm áp.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="khihau">
+                    <img src="https://data.thoitiet.vn/weather/2021/10/18/thoi-tiet-Tp-HCM.jpg" alt="Khí hậu Thành phố Hồ Chí Minh" data-caption="Khí hậu nhiệt đới gió mùa của Thành phố Hồ Chí Minh">
+                    <button class="favorite-button" onclick="toggleFavorite('khihau')" aria-label="Đánh dấu yêu thích Khí Hậu">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Khí hậu đặc trưng của Thành phố Hồ Chí Minh">Khí Hậu</h3>
+                        <p>Thành phố Hồ Chí Minh có khí hậu nhiệt đới gió mùa, với hai mùa rõ rệt: mùa khô (tháng 12-tháng 4) và mùa mưa (tháng 5-tháng 11). Nhiệt độ trung bình từ 25°C đến 35°C quanh năm. Mùa khô là thời điểm lý tưởng để khám phá các điểm tham quan và ẩm thực đường phố.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="lichsu">
+                    <img src="https://vietair.com.vn/Media/Images/lich-su-thanh-pho-ho-chi-minh-xua.jpg?p=1&w=790" alt="Lịch sử Thành phố Hồ Chí Minh" data-caption="Dinh Độc Lập, biểu tượng lịch sử của Sài Gòn">
+                    <button class="favorite-button" onclick="toggleFavorite('lichsu')" aria-label="Đánh dấu yêu thích Lịch Sử">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Lịch sử lâu đời của Thành phố Hồ Chí Minh">Lịch Sử</h3>
+                        <p>Thành phố Hồ Chí Minh, từng được gọi là Sài Gòn, có lịch sử phát triển từ thế kỷ 17 với tên gọi Prey Nokor. Trở thành trung tâm kinh tế, chính trị của Nam Kỳ, thành phố chứng kiến nhiều sự kiện lịch sử, từ thời Pháp thuộc đến cuộc kháng chiến, với các di tích như Dinh Độc Lập và Bảo tàng Chứng tích Chiến tranh.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="vanhoa">
+                    <img src="https://static.vinwonders.com/production/cac-le-hoi-o-tphcm.jpg" alt="Văn hóa Thành phố Hồ Chí Minh" data-caption="Lễ hội Áo dài, nét văn hóa đặc sắc của Sài Gòn">
+                    <button class="favorite-button" onclick="toggleFavorite('vanhoa')" aria-label="Đánh dấu yêu thích Văn Hóa">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Văn hóa đặc sắc của Thành phố Hồ Chí Minh">Văn Hóa</h3>
+                        <p>Thành phố Hồ Chí Minh là trung tâm văn hóa đa dạng, kết hợp giữa truyền thống và hiện đại. Các lễ hội như Tết Nguyên Đán, Festival Áo dài, và văn hóa cà phê Sài Gòn tạo nên bản sắc độc đáo. Các địa điểm như Nhà hát Thành phố và Chợ Bến Thành là biểu tượng văn hóa nổi bật.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="dialy">
+                    <img src="https://www.giaanproperty.vn/wp-content/uploads/2022/04/dothithongminhdoanhnhansaigon-1536919881.jpg" alt="Địa lý Thành phố Hồ Chí Minh" data-caption="Sông Sài Gòn và khu đô thị Quận 7">
+                    <button class="favorite-button" onclick="toggleFavorite('dialy')" aria-label="Đánh dấu yêu thích Địa Lý">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Vị trí và địa hình Thành phố Hồ Chí Minh">Địa Lý</h3>
+                        <p>Thành phố Hồ Chí Minh nằm ở Nam Bộ Việt Nam, với diện tích khoảng 2.095 km², là trung tâm kinh tế lớn nhất cả nước. Nằm bên sông Sài Gòn, thành phố có địa hình bằng phẳng, với các khu đô thị sầm uất như Quận 1, Quận 7, và vùng ngoại ô như Củ Chi.</p>
+                    </div>
+                </div>
+                <div class="info-card" data-id="amthuc">
+                    <img src="https://lh3.googleusercontent.com/I0k3BT_SnaXGVq-VR4sQ3OaFcWOekRclFXSrEnJ7MHOXrpCFWCNjFPlL7l1VnxbNvv2ZRqe35HbaIuJ1lT5CFE_XqquqkBgbE-Pw-iS40SO3nU3_s3uAryUpXP_cbtRhxvI1CpHi-qAgCHBPeov3PZY" alt="Ẩm thực Thành phố Hồ Chí Minh" data-caption="Bánh mì Sài Gòn – món ăn đường phố nổi tiếng">
+                    <button class="favorite-button" onclick="toggleFavorite('amthuc')" aria-label="Đánh dấu yêu thích Ẩm Thực">♡</button>
+                    <div class="info-card-content">
+                        <h3 data-tooltip="Ẩm thực đặc trưng của Thành phố Hồ Chí Minh">Ẩm Thực</h3>
+                        <p>Ẩm thực Thành phố Hồ Chí Minh là thiên đường với các món như bánh mì, phở, hủ tiếu, cơm tấm, và bún bò Huế. Các khu chợ đêm, quán ăn đường phố, và nhà hàng sang trọng mang đến trải nghiệm đa dạng, từ món dân dã đến ẩm thực quốc tế.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="explore-section">
+            <button class="explore-button" onclick="window.location.href='hochiminh.html'" aria-label="Chuyển đến trang Điểm Đến Thành phố Hồ Chí Minh" data-tooltip="Đi đến trang Điểm Đến Thành phố Hồ Chí Minh">
+                <span>✈️</span> Khám Phá Thành phố Hồ Chí Minh
+            </button>
+            <button class="feedback-button" onclick="openFeedbackModal()" aria-label="Gửi phản hồi về trang" data-tooltip="Chia sẻ ý kiến của bạn">
+                <span>📝</span> Gửi Phản Hồi
+            </button>
+        </div>
+    </div>
+    <div id="khoangxanh"></div>
+    <button class="weather-button" onclick="toggleWeather()">Xem Thời Tiết</button>
+    <div class="weather-overlay" id="weatherOverlay">
+        <p><strong>Thời tiết Thành phố Hồ Chí Minh (21/05/2025):</strong></p>
+        <p>Nhiệt độ: 30°C</p>
+        <p>Tình trạng: Trời quang, nắng nhẹ</p>
+        <p>Độ ẩm: 75%</p>
+        <button onclick="toggleWeather()">Đóng</button>
+    </div>
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img id="modalImage" src="" alt="Hình ảnh phóng to">
+            <p class="modal-caption" id="modalCaption"></p>
+        </div>
+    </div>
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content feedback-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Gửi Phản Hồi</h3>
+            <input type="text" id="feedbackName" placeholder="Họ và tên" required>
+            <textarea id="feedbackComment" placeholder="Ý kiến của bạn" rows="5" required></textarea>
+            <button onclick="submitFeedback()">Gửi</button>
+            <p id="feedbackMessage" style="display: none;"></p>
+        </div>
+    </div>
+    <footer>
+        <section class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                    <p class="logo-caption">ViVuWithTeam1</p>
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm.</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </footer>
+  <script src="hochiminh.js"></script>
+</body>
+</html>

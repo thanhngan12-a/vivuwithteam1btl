@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khám Phá Du Lịch Việt Nam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .tieude {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: linear-gradient(to right, #8CCAF1, #6ba8d8);
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid #6ba8d8;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .logo {
+            height: 60px;
+            width: 120px;
+            margin-right: 10px;
+        }
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .dieuhuong {
+            display: flex;
+            align-items: center;
+            flex-grow: 0;
+            flex-shrink: 1;
+            justify-content: center;
+            padding-left: 5px;
+        }
+        .dieuhuong a {
+            margin: 0 8px;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            border: 2px solid transparent;
+            transition: background-color 0.3s, border-color 0.3s;
+            border-radius: 5px;
+        }
+        .dieuhuong a.homepage {
+            margin-left: 2px;
+        }
+        .dieuhuong a:hover, .dieuhuong a.active {
+            background-color: #00acc1;
+            color: #333;
+        }
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+            padding: 0;
+            margin: 0;
+        }
+        .menu li {
+            position: relative;
+        }
+        .menu > li > a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu > li > a:hover {
+            background-color: #00acc1;
+        }
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #0056b3;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 170px;
+            z-index: 999;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .submenu li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .submenu li a:hover {
+            background-color: #00acc1;
+            color: #333;
+        }
+        .menu li:hover .submenu, .menu li.active .submenu {
+            display: block;
+        }
+        #div_dieuhuong {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .ngonngu {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            position: relative;
+            min-width: 200px;
+        }
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin: 5px 10px;
+        }
+        .ngonngu input {
+            border: 1px solid #ddd;
+            background-color: #fff;
+            width: 250px;
+            height: 34px;
+            border-radius: 20px;
+            padding: 0 30px 0 10px;
+            font-size: 14px;
+            transition: width 0.3s, border-color 0.3s;
+        }
+        .ngonngu input:focus {
+            width: 300px;
+            border-color: #00acc1;
+            outline: none;
+        }
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            color: #666;
+            font-size: 16px;
+            pointer-events: none;
+        }
+        .clear-search {
+            position: absolute;
+            right: 30px;
+            color: #666;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+        .clear-search.visible {
+            display: block;
+        }
+        #dangky, #dangnhap, #dangxuat {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            background-color: #E6F0FA;
+            margin: 5px;
+            width: 90px;
+            height: 34px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #dangky:hover, #dangnhap:hover, #dangxuat:hover {
+            background-color: #00acc1;
+            transform: scale(1.05);
+        }
+        #dangxuat {
+            display: none;
+        }
+        .hero-image {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+        }
+        .hero-image img {
+            width: 100%;
+            max-height: 600px;
+            object-fit: cover;
+            border-radius: 8px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .hero-image img.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        .hero-image .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 2;
+            font-size: 24px;
+        }
+        .hero-image .slide-btn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .hero-image .prev-btn {
+            left: 10px;
+        }
+        .hero-image .next-btn {
+            right: 10px;
+        }
+        .hero-image figcaption {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .intro-section {
+            max-width: 1200px;
+            margin: 5px auto;
+            padding: 10px;
+            text-align: center;
+        }
+        .intro-section h2 {
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #fff;
+            background-color: #1f7ecb;
+            padding: 12px;
+        }
+        .video-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+            text-align: center;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .filter-section {
+            padding: 6px;
+            background-color: #fff;
+            margin: 0 auto;
+            max-width: 1200px;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .filter-tag {
+            padding: 3px 10px;
+            background-color: #e0f7fa;
+            color: #00acc1;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .filter-tag.active {
+            background-color: #00acc1;
+            color: #fff;
+        }
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+        }
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            color: #666;
+            font-size: 16px;
+        }
+        .no-results.visible {
+            display: block;
+        }
+        .beach-section {
+            background-color: #F0F8FF;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .beach-section:first-child {
+            padding: 10px;
+        }
+        .beach-section:not(:first-child) {
+            padding: 15px;
+        }
+        .beach-section:first-child h2 {
+            margin-top: 8px;
+            padding: 6px;
+        }
+        h2 {
+            background-color: #1f7ecb;
+            color: white;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .destination-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        .destination-card.visible {
+            display: block;
+        }
+        .card-image {
+            position: relative;
+            z-index: 1;
+            pointer-events: auto;
+            touch-action: manipulation;
+            overflow: hidden;
+        }
+        .card-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0.85;
+        }
+        .destination-card:hover .card-image img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        .card-image img:active {
+            transform: scale(1.3);
+        }
+        .card-content {
+            padding: 10px;
+            position: relative;
+            z-index: 2;
+            pointer-events: auto;
+        }
+        .card-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .card-title a {
+            color: #333;
+            text-decoration: none;
+        }
+        .card-title a:hover {
+            text-decoration: underline;
+        }
+        .card-description {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+        .travel-tags {
+            margin-top: 10px;
+        }
+        .travel-tag {
+            display: inline-block;
+            background-color: #e0f7fa;
+            color: #00acc1;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-right: 5px;
+            font-size: 0.8em;
+        }
+        footer {
+            background: linear-gradient(to right, #AFE3FB, #2470A6);
+            padding: 20px;
+            color: #333;
+            margin-top: 5px;
+        }
+        .lienhe h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .lienhe p, .lienhe li {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        #div_lienhe {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        #div_img img {
+            width: 120px;
+            height: 100px;
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 100%;
+            max-height: 80%;
+            border-radius: 10px;
+            margin: 0;
+        }
+        .lightbox-caption {
+            color: #fff;
+            font-size: 1rem;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .lightbox-close:hover {
+            color: #ccc;
+        }
+        [data-tooltip] {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted #00acc1;
+        }
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00acc1;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+        [data-tooltip]:hover::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #00acc1;
+            margin-bottom: -12px;
+        }
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1f7ecb;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .scroll-to-top:hover {
+            background-color: #0056b3;
+            transform: translateY(-5px);
+        }
+        .feedback-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 70px;
+            background-color: #1f7ecb;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+        .feedback-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .feedback-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-5px);
+        }
+        .feedback-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .feedback-modal.active {
+            display: flex;
+        }
+        .feedback-modal-content {
+            background: linear-gradient(135deg, #f0f8ff, #e0f7fa);
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feedback-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+        .feedback-modal-close:hover {
+            color: #e74c3c;
+        }
+        .feedback-form {
+            display: grid;
+            gap: 15px;
+        }
+        .feedback-form label {
+            font-size: 0.95rem;
+            color: #2c3e50;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .feedback-form input, .feedback-form textarea, .feedback-form .file-input-wrapper {
+            width: 100%;
+            padding: 10px 12px 10px 40px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: #fff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .feedback-form textarea {
+            padding: 10px 12px;
+        }
+        .feedback-form input:focus, .feedback-form textarea:focus, .feedback-form .file-input-wrapper:focus-within {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+            outline: none;
+        }
+        .feedback-form input {
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            background-size: 18px;
+        }
+        #feedback-name { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79死了-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>'); }
+        #feedback-email { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>'); }
+        .file-input-wrapper { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23666"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9v-2h2v2h-2zm0-4v2h2V8h-2zm0 8v-2h6v2h-6z"/></svg>'); }
+        #feedback-image { display: none; }
+        .image-preview {
+            margin-top: 10px;
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 5px;
+            display: none;
+        }
+        .image-preview.visible { display: block; }
+        #submit-feedback {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+        #submit-feedback:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(90deg, #2980b9, #3498db);
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 3000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .toast.visible {
+            display: block;
+            opacity: 1;
+        }
+        .error-message {
+            display: none;
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 5px;
+            text-align: center;
+            font-weight: 500;
+        }
+        .error-message.visible {
+            display: block;
+        }
+        .filter-prompt {
+            font-family: 'Roboto', sans-serif;
+        }
+        .map-search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+        #locationSearch {
+            width: 400px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        @media (max-width: 1024px) {
+            .tieude {
+                padding: 10px 15px;
+            }
+            .dieuhuong {
+                padding-left: 3px;
+            }
+            .menu {
+                gap: 5px;
+            }
+            .menu > li > a {
+                padding: 8px 10px;
+                font-size: 15px;
+            }
+            .submenu {
+                width: 150px;
+            }
+            .ngonngu input {
+                width: 200px;
+            }
+            .ngonngu input:focus {
+                width: 250px;
+            }
+            .hero-image {
+                height: 400px;
+            }
+            .hero-image img {
+                max-height: 400px;
+            }
+            .intro-section h2 {
+                font-size: 2rem;
+            }
+            #intro h2 {
+                font-size: 2rem;
+            }
+            #intro p, #intro ul li {
+                font-size: 1.125rem;
+            }
+            #destinations h2 {
+                font-size: 2rem;
+            }
+            .map-search-container {
+                flex-direction: column;
+            }
+            #locationSearch {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .tieude {
+                padding: 8px 10px;
+            }
+            #div_dieuhuong {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: linear-gradient(to right, #8CCAF1, #6ba8d8);
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 15px;
+            }
+            #div_dieuhuong.show {
+                display: flex;
+            }
+            .dieuhuong a {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+            }
+            .menu {
+                flex-direction: column;
+                width: 100%;
+            }
+            .menu > li > a {
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+            }
+            .submenu {
+                position: static;
+                width: 100%;
+                background: #004080;
+                display: none;
+            }
+            .submenu.show {
+                display: block;
+            }
+            .ngonngu {
+                flex-direction: row;
+                gap: 5px;
+                margin-top: 10px;
+            }
+            .ngonngu input {
+                width: 150px;
+            }
+            .ngonngu input:focus {
+                width: 180px;
+            }
+            .destination-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-image {
+                height: 300px;
+            }
+            .hero-image img {
+                max-height: 300px;
+            }
+            .intro-section h2 {
+                font-size: 1.5rem;
+            }
+            #intro h2 {
+                font-size: 1.5rem;
+            }
+            #intro p, #intro ul li {
+                font-size: 1rem;
+            }
+            #destinations h2 {
+                font-size: 1.5rem;
+            }
+            .map-search-container {
+                flex-direction: column;
+            }
+            #locationSearch {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        @media (max-width: 480px) {
+            .tieude {
+                padding: 5px 10px;
+            }
+            .logo {
+                height: 36px;
+                width: 72px;
+            }
+            .ngonngu input {
+                width: 100px;
+                height: 30px;
+                font-size: 12px;
+            }
+            .ngonngu input:focus {
+                width: 120px;
+            }
+            #dangky, #dangnhap, #dangxuat {
+                width: 70px;
+                height: 26px;
+                font-size: 11px;
+                margin: 3px;
+            }
+            h2 {
+                font-size: 1.5em;
+                margin-top: 8px;
+                padding: 8px;
+            }
+            .card-title {
+                font-size: 1em;
+            }
+            .card-description {
+                font-size: 0.8em;
+            }
+            .filter-tag {
+                font-size: 12px;
+                padding: 2px 8px;
+            }
+            .scroll-to-top, .feedback-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            .feedback-btn {
+                right: 60px;
+            }
+            .hero-image {
+                height: 200px;
+            }
+            .hero-image img {
+                max-height: 200px;
+            }
+            .intro-section h2 {
+                font-size: 1.25rem;
+            }
+            #intro h2 {
+                font-size: 1.25rem;
+            }
+            #intro p, #intro ul li {
+                font-size: 0.875rem;
+            }
+            #destinations h2 {
+                font-size: 1.25rem;
+            }
+            .feedback-modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+            .feedback-form input, .feedback-form textarea, .feedback-form .file-input-wrapper {
+                padding: 8px 12px 8px 35px;
+                font-size: 0.9rem;
+            }
+            .feedback-form textarea {
+                padding: 8px 12px;
+            }
+            .feedback-form label {
+                font-size: 0.9rem;
+            }
+            .image-preview {
+                max-height: 120px;
+            }
+            #submit-feedback {
+                padding: 10px;
+                font-size: 0.95rem;
+            }
+            .toast {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            .error-message {
+                font-size: 0.75rem;
+            }
+            .map-search-container {
+                flex-direction: column;
+            }
+            #locationSearch {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <div class="lightbox">
+        <span class="lightbox-close">×</span>
+        <img src="" alt="" />
+        <div class="lightbox-caption"></div>
+    </div>
+    <!-- Feedback Modal -->
+    <div class="feedback-modal">
+        <div class="feedback-modal-content">
+            <span class="feedback-modal-close">×</span>
+            <h2 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Gửi Phản Hồi</h2>
+            <form class="feedback-form">
+                <div>
+                    <label for="feedback-name"><span class="text-gray-600">👤</span> Tên</label>
+                    <input type="text" id="feedback-name" placeholder="Nhập tên của bạn" required>
+                </div>
+                <div>
+                    <label for="feedback-email"><span class="text-gray-600">📧</span> Email</label>
+                    <input type="email" id="feedback-email" placeholder="Nhập email của bạn" required>
+                    <div id="email-error" class="error-message">Vui lòng nhập email hợp lệ (ví dụ: example@domain.com)</div>
+                </div>
+                <div>
+                    <label for="feedback-message"><span class="text-gray-600">✍️</span> Nội dung phản hồi</label>
+                    <textarea id="feedback-message" rows="4" placeholder="Nhập nội dung phản hồi" required></textarea>
+                </div>
+                <div class="file-input-wrapper">
+                    <label for="feedback-image"><span class="text-gray-600">📷</span> Tải ảnh lên (tùy chọn)</label>
+                    <input type="file" id="feedback-image" accept="image/*">
+                    <img id="image-preview" class="image-preview" alt="Preview ảnh phản hồi">
+                </div>
+                <button type="submit" id="submit-feedback">Gửi</button>
+            </form>
+        </div>
+    </div>
+    <!-- Toast Notification -->
+    <div class="toast" id="success-toast">Gửi thành công!</div>
+    <header class="tieude">
+        <div class="logo-box">
+            <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+        </div>
+        <button class="hamburger">☰</button>
+        <nav class="dieuhuong">
+            <div id="div_dieuhuong">
+                <a href="index.html" class="homepage active">Trang chủ</a>
+                <ul class="menu">
+                    <li>
+                        <a href="#">Miền Bắc</a>
+                        <ul class="submenu">
+                            <li><a href="hanoi1.html">Hà Nội</a></li>
+                            <li><a href="quangninh1.html">Quảng Ninh</a></li>
+                            <li><a href="hagiang1.html">Hà Giang</a></li>
+                            <li><a href="haiphong1.html">Hải Phòng</a></li>
+                            <li><a href="laocai1.html">Lào Cai</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Miền Trung</a>
+                        <ul class="submenu">
+                            <li><a href="danang1.html">Đà Nẵng</a></li>
+                            <li><a href="hue1.html">Thừa Thiên Huế</a></li>
+                            <li><a href="nghean1.html">Nghệ An</a></li>
+                            <li><a href="thanhhoa1.html">Thanh Hóa</a></li>
+                            <li><a href="quangnam1.html">Quảng Nam</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Miền Nam</a>
+                        <ul class="submenu">
+                            <li><a href="hochiminh1.html">TP. Hồ Chí Minh</a></li>
+                            <li><a href="cantho1.html">Cần Thơ</a></li>
+                            <li><a href="binhduong1.html">Bình Dương</a></li>
+                            <li><a href="baria1.html">Bà Rịa Vũng Tàu</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="ngonngu">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm điểm nổi bật...">
+                <span class="search-icon">🔍</span>
+                <span class="clear-search">✖</span>
+            </div>
+            <div id="dangky">Đăng ký</div>
+            <div id="dangnhap">Đăng nhập</div>
+            <div id="dangxuat">Đăng xuất</div>
+        </div>
+    </header>
+
+    <!-- Hero Image Slideshow -->
+    <div class="hero-image">
+        <img src="vietnam1.jpeg" alt="Việt Nam1" class="active">
+        <img src="vietnam2.jpg" alt="Việt Nam2">
+        <img src="vietnam3.jpg" alt="Việt Nam3">
+        <button class="slide-btn prev-btn">❮</button>
+        <button class="slide-btn next-btn">❯</button>
+    </div>
+
+    <!-- Intro Section with KHÁM PHÁ VIỆT NAM -->
+    <section class="intro-section bg-white">
+        <h2 class="text-4xl font-bold text-center py-6 text-white bg-[#1f7ecb]">Khám Phá Việt Nam</h2>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/Sxhfof7Y8Gw?si=iewTUQXBJIpBAgAT" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Map and Intro Section -->
+    <section id="intro" class="py-3 bg-gray-100">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12">Tìm Hiểu Việt Nam</h2>
+            <div class="flex flex-col gap-8">
+                <!-- Thông tin -->
+                <div class="w-full">
+                    <p class="text-gray-600 mb-6 text-lg">Việt Nam – đất nước với cảnh sắc thiên nhiên hùng vĩ, văn hóa đa dạng và ẩm thực độc đáo. Từ vịnh Hạ Long đến đồng bằng sông Cửu Long, mỗi vùng đất đều mang một câu chuyện riêng.</p>
+                    <p class="text-gray-600 mb-6 text-lg">Việt Nam là một quốc gia nằm ở <span data-tooltip="Khu vực nằm ở phía Đông Nam châu Á">Đông Nam Á</span>, nổi tiếng với hình dáng chữ S kéo dài dọc bờ biển Đông. Với diện tích khoảng 331.212 km² và dân số hơn 100 triệu người (tính đến năm 2025), Việt Nam là một trong những quốc gia đông dân nhất khu vực.</p>
+                    <p class="text-gray-600 mb-6 text-lg">Lịch sử Việt Nam trải dài hơn <span data-tooltip="Lịch sử lâu đời với nhiều triều đại phong kiến">4.000 năm</span>, với những triều đại phong kiến như nhà Lý, nhà Trần, và nhà Nguyễn, để lại nhiều di sản văn hóa quý giá như cố đô Huế, Văn Miếu Quốc Tử Giám và các lễ hội truyền thống. Văn hóa Việt Nam là sự pha trộn hài hòa giữa truyền thống và hiện đại, với <span data-tooltip="Gồm nhiều dân tộc như Kinh, Tày, Thái, H'Mông...">54 dân tộc</span> anh em, mỗi dân tộc mang bản sắc riêng biệt.</p>
+                    <p class="text-gray-600 mb-6 text-lg">Ẩm thực Việt Nam cũng là một điểm nhấn, nổi tiếng toàn cầu với các món ăn như <span data-tooltip="Món súp bò hoặc gà với bánh phở">phở</span>, <span data-tooltip="Bánh mì kẹp thịt, rau và pate">bánh mì</span>, và gỏi cuốn. Thiên nhiên Việt Nam đa dạng, từ những dãy núi hùng vĩ ở miền Bắc, những bãi biển xanh ngọc ở miền Trung, đến vùng đồng bằng sông Cửu Long trù phú ở miền Nam.</p>
+                </div>
+                <!-- Sử dụng bộ lọc -->
+                <div class="w-full">
+                    <p class="filter-prompt text-gray-600 mb-4 text-xl text-center">Sử dụng bộ lọc dưới đây để khám phá các loại điểm đến!</p>
+                    <div class="flex justify-center space-x-4">
+                        <button class="filter-btn px-4 py-2 bg-gray-200 rounded hover:bg-green-600 hover:text-white active" data-filter="all">Tất Cả</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-200 rounded hover:bg-green-600 hover:text-white" data-filter="sea">Biển</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-200 rounded hover:bg-green-600 hover:text-white" data-filter="mountain">Núi</button>
+                        <button class="filter-btn px-4 py-2 bg-gray-200 rounded hover:bg-green-600 hover:text-white" data-filter="culture">Văn Hóa</button>
+                    </div>
+                </div>
+                <!-- Tìm kiếm vị trí và bản đồ -->
+                <div class="w-full">
+                    <div class="map-search-container">
+                        <input type="text" id="locationSearch" placeholder="Tìm tất cả các tỉnh...">
+                    </div>
+                    <div id="vietnam-map" class="w-full h-96 rounded-lg mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Destinations -->
+    <section id="destinations" class="py-2">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Địa Điểm Nổi Bật</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden destination-card visible" data-tags="sea culture">
+                    <div class="card-image">
+                        <a href="quangninh1.html"><img src="https://media.vietravel.com/images/Content/kinh-nghiem-du-lich-ha-long-01.jpg" alt="Vịnh Hạ Long"></a>
+                    </div>
+                    <div class="p-6 card-content">
+                        <h4 class="text-xl font-semibold mb-2"><span data-tooltip="Di sản thế giới UNESCO tại Quảng Ninh">Vịnh Hạ Long</span></h4>
+                        <p class="text-gray-600">Di sản thế giới UNESCO với hàng nghìn đảo đá vôi và làn nước xanh ngọc.</p>
+                        <div class="travel-tags mt-2">
+                            <span class="travel-tag">Biển</span>
+                            <span class="travel-tag">Văn Hóa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden destination-card visible" data-tags="culture">
+                    <div class="card-image">
+                        <a href="quangnam1.html"><img src="https://hoiana.com/wp-content/uploads/2024/12/pho-co-hoi-an-ve-dem-16.webp" alt="Phố cổ Hội An về đêm"></a>
+                    </div>
+                    <div class="p-6 card-content">
+                        <h4 class="text-xl font-semibold mb-2"><span data-tooltip="Thị trấn cổ tại Quảng Nam">Phố Cổ Hội An</span></h4>
+                        <p class="text-gray-600">Nằm bên dòng sông Thu Bồn thơ mộng, Phố cổ Hội An là viên ngọc quý của Quảng Nam, nơi lưu giữ kiến trúc cổ 300 năm và văn hóa giao thoa Việt–Trung–Nhật. Được UNESCO công nhận năm 1999, Hội An thu hút du khách bởi Chùa Cầu, nhà cổ, đèn lồng rực rỡ, và ẩm thực độc đáo như cao lầu, cơm gà.</p>
+                        <div class="travel-tags mt-2">
+                            <span class="travel-tag">Văn Hóa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden destination-card visible" data-tags="mountain">
+                    <div class="card-image">
+                        <a href="hue1.html"><img src="https://khamphadisan.com.vn/wp-content/uploads/2017/02/nui-ngu-binh-khamphadisan-2-e1488164889173.jpg" alt="Núi Ngự Bình"></a>
+                    </div>
+                    <div class="p-6 card-content">
+                        <h4 class="text-xl font-semibold mb-2"><span data-tooltip="Biểu tượng thiên nhiên và phong thủy của Huế">Núi Ngự Bình</span> – Viên ngọc thiên nhiên của Huế</h4>
+                        <p class="text-gray-600">Núi Ngự Bình là một địa điểm du lịch nổi tiếng và mang tính biểu tượng của cố đô Huế, nơi bạn có thể hòa mình vào thiên nhiên thơ mộng và bình yên.</p>
+                        <div class="travel-tags mt-2">
+                            <span class="travel-tag">Núi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden destination-card visible" data-tags="sea">
+                    <div class="card-image">
+                        <a href="thanhhoa1.html"><img src="https://static.vinwonders.com/production/du-lich-sam-son-mua-nao-dep.jpg" alt="Sầm Sơn Beach at sunset"></a>
+                    </div>
+                    <div class="p-6 card-content">
+                        <h4 class="text-xl font-semibold mb-2"><span data-tooltip="Di tích Quốc gia đặc biệt 2019">Khu danh thắng Sầm Sơn</span> – Viên ngọc du lịch xứ Thanh</h4>
+                        <p class="text-gray-600"><span data-tooltip="Di tích Quốc gia đặc biệt 2019">Sầm Sơn</span>, Thanh Hóa, là khu danh thắng Quốc gia đặc biệt với <span data-tooltip="Bãi biển hình trăng khuyết">bãi biển</span> trăng khuyết, <span data-tooltip="Biểu tượng tình yêu vĩnh cửu">Hòn Trống Mái</span> thơ mộng, và các đền thờ cổ kính, kết hợp hài hòa giữa thiên nhiên và văn hóa.</p>
+                        <div class="travel-tags mt-2">
+                            <span class="travel-tag">Biển</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden destination-card visible" data-tags="mountain">
+                    <div class="card-image">
+                        <a href="laocai1.html"><img src="https://booking.muongthanh.com/upload_images/images/H%60/sa-pa-thi-tran-trong-suong.jpg" alt="Thị trấn Sa Pa trong sương mù buổi sáng"></a>
+                    </div>
+                    <div class="p-6 card-content">
+                        <h4 class="text-xl font-semibold mb-2"><span data-tooltip="Vùng núi tại Lào Cai">Sapa</span></h4>
+                        <p class="text-gray-600">Nằm ở độ cao 1,500–1,800m, <span data-tooltip="Thị trấn du lịch nổi tiếng ở Lào Cai">Sa Pa</span> là điểm đến với khí hậu mát mẻ, văn hóa <span data-tooltip="Dân tộc nổi tiếng với nhà sàn">Tày</span>-Mông-Dao, núi <span data-tooltip="Đỉnh núi cao nhất Đông Dương">Fansipan</span>, và bản Cát Cát thơ mộng.</p>
+                        <div class="travel-tags mt-2">
+                            <span class="travel-tag">Núi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden destination-card visible" data-tags="culture">
+                    <div class="card-image">
+                        <a href="hanoi1.html"><img src="https://static.vinwonders.com/production/hoang-thanh-thang-long-banner.jpg" alt="Toàn cảnh Hoàng Thành Thăng Long" loading="lazy"></a>
+                    </div>
+                    <div class="p-6 card-content">
+                        <h4 class="text-xl font-semibold mb-2"><span data-tooltip="Di sản Văn hóa Thế giới">Hoàng Thành Thăng Long</span> – Ghi dấu lịch sử kinh thành Thăng Long Hà Nội</h4>
+                        <p class="text-gray-600">Hoàng Thành Thăng Long là quần thể di tích gắn liền với lịch sử <span data-tooltip="Kinh đô cổ của Việt Nam">kinh thành Thăng Long</span> Hà Nội. Công trình này được xây dựng từ thế kỷ VII đến triều đại Đinh – Tiền Lê.</p>
+                        <div class="travel-tags mt-2">
+                            <span class="travel-tag">Văn Hóa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-results">Không tìm thấy địa điểm phù hợp.</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="lienhe">
+            <div id="div_lienhe">
+                <div id="div_img">
+                    <img src="logo5.png" alt="ViVuWithTeam1 Logo" class="logo">
+                </div>
+                <div id="div_lh">
+                    <h3>LIÊN HỆ</h3>
+                    <ul>
+                        <li>Địa chỉ: 98 Dương Quảng Hàm</li>
+                        <li>Hotline: 19001001880</li>
+                        <li>SĐT: 0385.134.578</li>
+                        <li>Email: VivuWithTeam1@gmail.com</li>
+                        <li>Website: https://ViVuWithTeam1/</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center mt-4">© 2025 ViVuWithTeam1</p>
+        </div>
+    </footer>
+    <div class="scroll-to-top">↑</div>
+    <div class="feedback-btn">✉</div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+         // Toggle authentication buttons based on login status
+function toggleAuthButtons() {
+    const isLoggedIn = sessionStorage.getItem('trangthai') === 'hien';
+    console.log('Login status:', isLoggedIn, 'trangthai:', sessionStorage.getItem('trangthai')); // Debugging
+    const dangxuatBtn = document.getElementById('dangxuat');
+    const dangnhapBtn = document.getElementById('dangnhap');
+    const dangkyBtn = document.getElementById('dangky');
+
+    if (isLoggedIn) {
+        dangxuatBtn.style.display = 'flex';
+        dangnhapBtn.style.display = 'none';
+        dangkyBtn.style.display = 'none';
+    } else {
+        dangxuatBtn.style.display = 'none';
+        dangnhapBtn.style.display = 'flex';
+        dangkyBtn.style.display = 'flex';
+    }
+}
+
+// Logout function
+function m2() {
+    alert('Đăng xuất thành công!');
+    sessionStorage.removeItem('tk');
+    sessionStorage.removeItem('mk');
+    sessionStorage.removeItem('trangthai');
+    toggleAuthButtons(); // Cập nhật giao diện ngay sau khi đăng xuất
+    try {
+        window.location.href = './dangnhap.html';
+    } catch (e) {
+        console.error('Lỗi chuyển hướng:', e);
+        alert('Không tìm thấy trang đăng nhập. Vui lòng kiểm tra dangnhap.html');
+    }
+}
+
+// Initialize authentication buttons on page load
+window.addEventListener('load', toggleAuthButtons);
+
+        // Initialize Leaflet map centered on Vietnam
+        var map = L.map('vietnam-map').setView([16.0, 108.0], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Define destinations with type, details, and href
+        const destinations = [
+            { coords: [21.0278, 105.8342], name: 'Hoàng Thành Thăng Long', type: 'culture', province: 'Hà Nội', description: 'Di sản văn hóa thế giới tại Hà Nội.', image: 'https://static.vinwonders.com/production/hoang-thanh-thang-long-banner.jpg', href: 'hanoi1.html' },
+            { coords: [20.939, 107.068], name: 'Vịnh Hạ Long', type: 'sea', province: 'Quảng Ninh', description: 'Di sản UNESCO với hàng nghìn đảo đá vôi.', image: 'https://media.vietravel.com/images/Content/kinh-nghiem-du-lich-ha-long-01.jpg', href: 'quangninh1.html' },
+            { coords: [22.335, 103.844], name: 'Sapa', type: 'mountain', province: 'Lào Cai', description: 'Thị trấn núi nổi tiếng với Fansipan.', image: 'https://booking.muongthanh.com/upload_images/images/H%60/sa-pa-thi-tran-trong-suong.jpg', href: 'laocai1.html' },
+            { coords: [23.136, 104.979], name: 'Đồng Văn', type: 'mountain', province: 'Hà Giang', description: 'Cao nguyên đá độc đáo tại Hà Giang.', image: 'https://sinhtour.vn/wp-content/uploads/2023/12/pho-co-dong-van-ha-giang.jpg', href: 'hagiang1.html' },
+            { coords: [20.8449, 106.688], name: 'Đảo Cát Bà', type: 'sea', province: 'Hải Phòng', description: 'Vịnh Lan Hạ đẹp mê hồn tại Hải Phòng.', image: 'https://mia.vn/media/uploads/blog-du-lich/bai-tam-cat-co-1-1-1705444174.jpg', href: 'haiphong1.html' },
+            { coords: [16.054, 108.211], name: 'Bán đảo Sơn Trà', type: 'mountain', province: 'Đà Nẵng', description: 'Rừng nguyên sinh và chùa Linh Ứng.', image: 'https://ik.imagekit.io/tvlk/blog/2022/09/ban-dao-son-tra-2.png', href: 'danang1.html' },
+            { coords: [16.467, 107.579], name: 'Núi Ngự Bình', type: 'mountain', province: 'Thừa Thiên Huế', description: 'Biểu tượng thiên nhiên của Huế.', image: 'https://khamphadisan.com.vn/wp-content/uploads/2017/02/nui-ngu-binh-khamphadisan-2-e1488164889173.jpg', href: 'hue1.html' },
+            { coords: [18.684, 105.696], name: 'Vườn quốc gia Pù Mát', type: 'mountain', province: 'Nghệ An', description: 'Rừng nguyên sinh tại Nghệ An.', image: 'https://static.vinwonders.com/production/vi-tri-vuon-quoc-gia-pu-mat.jpg', href: 'nghean1.html' },
+            { coords: [15.880, 108.338], name: 'Phố Cổ Hội An', type: 'culture', province: 'Quảng Nam', description: 'Thị trấn cổ đẹp tại Quảng Nam.', image: 'https://hoiana.com/wp-content/uploads/2024/12/pho-co-hoi-an-ve-dem-16.webp', href: 'quangnam1.html' },
+            { coords: [19.733, 105.917], name: 'Khu danh thắng Sầm Sơn', type: 'sea', province: 'Thanh Hóa', description: 'Bãi biển trăng khuyết tại Thanh Hóa.', image: 'https://static.vinwonders.com/production/du-lich-sam-son-mua-nao-dep.jpg', href: 'thanhhoa1.html' },
+            { coords: [10.776, 106.701], name: 'Dinh Độc Lập', type: 'culture', province: 'TP. Hồ Chí Minh', description: 'Di tích lịch sử tại TP. Hồ Chí Minh.', image: 'https://image.nhandan.vn/Uploaded/2025/fdmzftmztpmf/2025_04_20/ndo_br_dat-14-7297-8083.jpg', href: 'hochiminh1.html' },
+            { coords: [9.193, 105.153], name: 'Chợ nổi Cái Răng', type: 'culture', province: 'Cần Thơ', description: 'Nét văn hóa sông nước tại Cần Thơ.', image: 'https://nguoiduatin.mediacdn.vn/84137818385850368/2024/9/25/base64-1727265825888848625527.jpeg', href: 'cantho1.html' },
+            { coords: [11.013, 106.717], name: 'Làng Tre Phú An', type: 'culture', province: 'Bình Dương', description: 'Làng nghề thủ công tại Bình Dương.', image: 'https://ik.imagekit.io/tvlk/blog/2023/09/lang-tre-phu-an-12.jpg', href: 'binhduong1.html' },
+            { coords: [10.543, 107.244], name: 'Hòn Bà', type: 'mountain', province: 'Bà Rịa Vũng Tàu', description: 'Đỉnh núi cao tại Bà Rịa Vũng Tàu.', image: 'https://chamkhanhhoa.com/wp-content/uploads/2022/03/hon-ba-cam-lam-khanh-hoa.jpg', href: 'baria1.html' }
+        ];
+
+        // Store markers for filtering
+        let markers = [];
+
+        // Function to add markers based on filter
+        function addMarkers(filter) {
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+            destinations.forEach(dest => {
+                if (filter === 'all' || dest.type === filter) {
+                    const marker = L.marker(dest.coords).addTo(map)
+                        .bindPopup(`
+                            <div class="text-center">
+                                <img src="${dest.image}" alt="${dest.name}" class="w-full h-auto object-cover mb-4">
+                                <h3 class="font-bold text-lg">${dest.name}</h3>
+                                <p>${dest.description}</p>
+                                <a href="${dest.href}" class="text-blue-600 underline" aria-label="Xem chi tiết về ${dest.name}">Xem chi tiết</a>
+                            </div>
+                        `);
+                    markers.push(marker);
+                }
+            });
+        }
+
+        // Initial load: show all markers
+        addMarkers('all');
+
+        // Filter buttons event listeners
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const filter = button.getAttribute('data-filter');
+                addMarkers(filter);
+            });
+        });
+
+        // Toggle hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('#div_dieuhuong');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+
+        // Improved search functionality
+        const searchInput = document.querySelector('#searchInput');
+        const clearSearch = document.querySelector('.clear-search');
+        const destinationCards = document.querySelectorAll('.destination-card');
+
+        // Hàm chuẩn hóa chuỗi: bỏ dấu tiếng Việt và chuyển thành chữ thường
+        function normalizeString(str) {
+            return str
+                .normalize('NFD') // Tách dấu ra khỏi ký tự
+                .replace(/[\u0300-\u036f]/g, '') // Xóa các ký tự dấu
+                .replace(/đ/g, 'd') // Thay đ thành d
+                .replace(/Đ/g, 'D')
+                .toLowerCase()
+                .trim();
+        }
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = normalizeString(searchInput.value);
+            let visibleCount = 0;
+
+            destinationCards.forEach(card => {
+                const title = normalizeString(card.querySelector('h4').textContent);
+                const words = title.split(/\s+/); // Tách tiêu đề thành các từ
+
+                // Kiểm tra nếu bất kỳ từ nào trong tiêu đề chứa searchTerm
+                const matches = searchTerm === '' || words.some(word => word.includes(searchTerm));
+
+                if (matches) {
+                    card.classList.add('visible');
+                    visibleCount++;
+                } else {
+                    card.classList.remove('visible');
+                }
+            });
+
+            // Show no-results message if no matches
+            const noResults = document.querySelector('.no-results');
+            if (visibleCount === 0 && searchTerm !== '') {
+                noResults.classList.add('visible');
+            } else {
+                noResults.classList.remove('visible');
+            }
+
+            clearSearch.classList.toggle('visible', searchTerm !== '');
+        });
+
+        clearSearch.addEventListener('click', () => {
+            searchInput.value = '';
+            destinationCards.forEach(card => card.classList.add('visible'));
+            const noResults = document.querySelector('.no-results');
+            noResults.classList.remove('visible');
+            clearSearch.classList.remove('visible');
+        });
+
+        // Lightbox functionality for destination cards and hero image
+        const images = document.querySelectorAll('.card-image img, .hero-image img');
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+        const lightboxClose = document.querySelector('.lightbox-close');
+
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightboxCaption.textContent = img.alt;
+                lightbox.classList.add('active');
+                lightbox.focus();
+            });
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+            }
+        });
+
+        // Scroll-to-top functionality
+        const scrollToTopBtn = document.querySelector('.scroll-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Feedback functionality
+        const feedbackBtn = document.querySelector('.feedback-btn');
+        const feedbackModal = document.querySelector('.feedback-modal');
+        const feedbackModalClose = document.querySelector('.feedback-modal-close');
+        const feedbackForm = document.querySelector('.feedback-form');
+        const submitFeedbackBtn = document.querySelector('#submit-feedback');
+        const successToast = document.querySelector('#success-toast');
+        const emailError = document.querySelector('#email-error');
+        const imageInput = document.querySelector('#feedback-image');
+        const imagePreview = document.querySelector('#image-preview');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                feedbackBtn.classList.add('visible');
+            } else {
+                feedbackBtn.classList.remove('visible');
+            }
+        });
+
+        feedbackBtn.addEventListener('click', () => {
+            feedbackModal.classList.add('active');
+        });
+
+        feedbackModalClose.addEventListener('click', () => {
+            feedbackModal.classList.remove('active');
+            emailError.classList.remove('visible');
+            imagePreview.classList.remove('visible');
+            imagePreview.src = '';
+        });
+
+        feedbackModal.addEventListener('click', (e) => {
+            if (e.target === feedbackModal) {
+                feedbackModal.classList.remove('active');
+                emailError.classList.remove('visible');
+                imagePreview.classList.remove('visible');
+                imagePreview.src = '';
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && feedbackModal.classList.contains('active')) {
+                feedbackModal.classList.remove('active');
+                emailError.classList.remove('visible');
+                imagePreview.classList.remove('visible');
+                imagePreview.src = '';
+            }
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    imagePreview.src = event.target.result;
+                    imagePreview.classList.add('visible');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.classList.remove('visible');
+                imagePreview.src = '';
+            }
+        });
+
+        feedbackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.querySelector('#feedback-name').value;
+            const email = document.querySelector('#feedback-email').value;
+            const message = document.querySelector('#feedback-message').value;
+            const imageFile = imageInput.files[0];
+
+            // Email validation regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                emailError.classList.add('visible');
+                return;
+            }
+            emailError.classList.remove('visible');
+
+            const formData = { name, email, message };
+            if (imageFile) formData.image = imageFile.name; // Chỉ lưu tên file để log
+            console.log('Phản hồi:', formData);
+
+            // Show success toast and auto hide after 1 second
+            successToast.classList.add('visible');
+            setTimeout(() => {
+                successToast.classList.remove('visible');
+            }, 1000);
+
+            feedbackModal.classList.remove('active');
+            feedbackForm.reset();
+            imagePreview.classList.remove('visible');
+            imagePreview.src = '';
+        });
+
+        document.querySelector('#dangky').addEventListener('click', () => {
+            try {
+                window.location.href = './dangky.html';
+            } catch (e) {
+                console.error('Lỗi chuyển hướng:', e);
+                alert('Không tìm thấy trang đăng ký. Vui lòng kiểm tra dangky.html');
+            }
+        });
+
+        document.querySelector('#dangnhap').addEventListener('click', () => {
+            try {
+                window.location.href = './dangnhap.html';
+            } catch (e) {
+                console.error('Lỗi chuyển hướng:', e);
+                alert('Không tìm thấy trang đăng nhập. Vui lòng kiểm tra dangnhap.html');
+            }
+        });
+
+        document.querySelector('#dangxuat').addEventListener('click', () => {
+            alert('Đăng xuất thành công!');
+            sessionStorage.removeItem('tk');
+            sessionStorage.removeItem('mk');
+            sessionStorage.removeItem('trangthai');
+            toggleAuthButtons();
+            try {
+                window.location.href = './dangnhap.html';
+            } catch (e) {
+                console.error('Lỗi chuyển hướng:', e);
+                alert('Không tìm thấy trang đăng nhập. Vui lòng kiểm tra dangnhap.html');
+            }
+        });
+
+        // Slideshow functionality
+        window.onload = () => {
+            let slideIndex = 0;
+            const slides = document.querySelectorAll('.hero-image img');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            if (!slides || slides.length === 0) {
+                console.error('Không tìm thấy ảnh trong slideshow');
+                return;
+            }
+            if (!prevBtn || !nextBtn) {
+                console.error('Không tìm thấy nút prev hoặc next');
+                return;
+            }
+
+            function showSlide(index) {
+                if (index >= slides.length) {
+                    slideIndex = 0;
+                } else if (index < 0) {
+                    slideIndex = slides.length - 1;
+                } else {
+                    slideIndex = index;
+                }
+
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    if (i === slideIndex) {
+                        slide.classList.add('active');
+                    }
+                });
+            }
+
+            function nextSlide() {
+                slideIndex++;
+                showSlide(slideIndex);
+            }
+
+            function prevSlide() {
+                slideIndex--;
+                showSlide(slideIndex);
+            }
+
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                nextSlide();
+            });
+
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                prevSlide();
+            });
+
+            setInterval(() => {
+                nextSlide();
+            }, 2000);
+
+            showSlide(slideIndex);
+
+            // Ensure auth buttons are toggled after slideshow initialization
+            toggleAuthButtons();
+        };
+
+        // Location search functionality for all provinces
+        const locationSearch = document.querySelector('#locationSearch');
+        locationSearch.addEventListener('input', () => {
+            const searchTerm = normalizeString(locationSearch.value);
+            if (searchTerm === '') {
+                map.setView([16.0, 108.0], 5); // Reset to Vietnam view
+                return;
+            }
+
+            const foundDest = destinations.find(dest =>
+                normalizeString(dest.province).includes(searchTerm) || normalizeString(dest.name).includes(searchTerm)
+            );
+            if (foundDest) {
+                map.setView(foundDest.coords, 10); // Zoom in to location
+                markers.forEach(marker => {
+                    const popupContent = marker.getPopup().getContent();
+                    const popupName = normalizeString(popupContent.match(/<h3[^>]*>(.*?)<\/h3>/)[1]);
+                    if (popupName === normalizeString(foundDest.name)) {
+                        marker.openPopup();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
